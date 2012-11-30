@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block media %}
+	{{ block.super }}
+	{{ form.media }}
+{% endblock %}
+
+
+{% block content %}
+	<form action="{% url files:upload %}" method="post">
+		{{ form.as_p }}
+	</form>
+{% endblock %}

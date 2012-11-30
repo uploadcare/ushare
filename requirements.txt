@@ -1,0 +1,9 @@
+Django==1.4.2
+South==0.7.6
+distribute==0.6.31
+dj-database-url==0.2.1
+gunicorn==0.16.1
+psycopg2==2.4.5
+pyuploadcare==0.13
+requests==0.14.2
+wsgiref==0.1.2

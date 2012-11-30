@@ -1,0 +1,6 @@
+build/*
+*.pyo
+*.pyc
+*local.py
+*.DS_Store
+vagrant/*
