@@ -7,7 +7,7 @@ import dj_database_url
 
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 PRODUCTION_MODE = False
 
