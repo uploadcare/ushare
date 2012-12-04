@@ -17,7 +17,7 @@ class ImageFileCreateView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         context = {
-            'url': self.object.file.cdn_url,
+            'url': self.object.url(),
         }
         return self.get_json_response(context)
 
