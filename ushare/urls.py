@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^files/', include('ushare.files.urls', namespace='files')),
-    url(r'^$', 'ushare.files.views.index', name='index'),
+    url(r'^$', 'ushare.files.views.create_view', name='index'),
 )
 
 

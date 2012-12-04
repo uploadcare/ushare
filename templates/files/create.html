@@ -2,14 +2,25 @@
 
 
 
-{% block media %}
+{% block extra_head %}
 	{{ block.super }}
 	{{ form.media }}
 {% endblock %}
 
 
 {% block content %}
-	<form action="{% url files:upload %}" method="post">
-		{{ form.as_p }}
-	</form>
+	<div id="upload-form-wrapper">
+		<form action="{% url files:upload %}" method="post" id="id_upload-form">
+			{% csrf_token %}
+			<div class="field-wrapper">
+				<ul class="field-error-list">
+					<li class="empty-elem"></li>
+				</ul>
+				{{ form.file }}
+			</div>
+			<input type="submit" value="Upload" />
+		</form>
+		<input type="text" class="file-url upload-success hidden" readonly="readonly" />
+		<a href="." class="upload-more upload-success hidden">Upload more?</a>
+	</div>
 {% endblock %}

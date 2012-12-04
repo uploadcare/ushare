@@ -1,0 +1,13 @@
+#upload-form-wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+}
+
+.empty-elem, .hidden {
+	display: none;;
+}
+
+.error {
+	border: 1px solid red;
+}
