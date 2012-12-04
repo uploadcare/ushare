@@ -168,5 +168,5 @@ LOGGING = {
 UPLOADCARE = {
     'pub_key': 'demopublickey',
     'secret': 'demoprivatekey',
-    'api_version': '0.1'
+    'api_version': '0.2'
 }
