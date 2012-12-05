@@ -168,7 +168,6 @@ LOGGING = {
 UPLOADCARE = {
     'pub_key': 'demopublickey',
     'secret': 'demoprivatekey',
-    'api_version': '0.2'
 }
 
 PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.3/uploadcare/uploadcare-0.4.3.min.js'
