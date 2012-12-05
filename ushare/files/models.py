@@ -24,8 +24,9 @@ class BaseAbstractFile(models.Model):
             'protocol': 'https' if use_https else 'http',
             'domain': Site.objects.get_current(),
             'url': self.get_absolute_url(),
+            'filename': self.file.filename,
         }
-        return u'%(protocol)s://%(domain)s%(url)s' % mapping
+        return u'%(protocol)s://%(domain)s%(url)s%(filename)s' % mapping
 
 
 class ImageFile(BaseAbstractFile):
