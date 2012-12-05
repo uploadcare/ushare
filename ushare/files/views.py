@@ -42,3 +42,4 @@ class ImageFileDetailView(DetailView):
     model = ImageFile
     context_object_name = 'image'
     template_name = 'files/detail.html'
+    slug_field = 'file_id'

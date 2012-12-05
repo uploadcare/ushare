@@ -8,6 +8,7 @@ from pyuploadcare.dj import FileField
 
 class BaseAbstractFile(models.Model):
     file = FileField(verbose_name=_(u'file'), null=True)
+    file_id = models.TextField(_(u'uploadcare id'), default=u'', blank=True)
     date_created = models.DateTimeField(_(u'date created'), auto_now_add=True, null=True)
 
     class Meta:
@@ -16,7 +17,7 @@ class BaseAbstractFile(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('files:detail', (self.id,))
+        return ('files:detail', (self.file_id,))
 
     def url(self, use_https=False):
         mapping = {
