@@ -1,4 +1,4 @@
-from django import http
+from django.http import HttpResponse, HttpResponsePermanentRedirect
 from django.utils import simplejson as json
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
@@ -8,7 +8,7 @@ from .models import File
 
 
 
-class ImageFileCreateView(CreateView):
+class FileCreateView(CreateView):
     model = File
     template_name = 'files/create.html'
 
@@ -25,19 +25,26 @@ class ImageFileCreateView(CreateView):
 
     def get_json_response(self, context, status=200):
         content = json.dumps(context)
-        return http.HttpResponse(content, 'application/json', status)
+        return HttpResponse(content, 'application/json', status)
 
 
 @csrf_exempt
 def create_view(request, *args, **kwargs):
-    view = ImageFileCreateView.as_view()
+    view = FileCreateView.as_view()
     if request.user.is_authenticated():
         view = csrf_protect(view)
     return view(request, *args, **kwargs)
 
 
-class ImageFileDetailView(DetailView):
+class FileDetailView(DetailView):
     model = File
     context_object_name = 'file'
-    template_name = 'files/detail.html'
+    template_name = 'files/detail_image.html'
     slug_field = 'file_id'
+
+    def render_to_response(self, context):
+        obj = self.object
+        if obj.is_image:
+            return super(FileDetailView, self).render_to_response(context)
+
+        return HttpResponsePermanentRedirect(obj.file_obj.cdn_url + obj.filename)

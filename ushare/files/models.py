@@ -53,6 +53,10 @@ class BaseAbstractFile(models.Model):
     def size(self):
         return self.file_obj.info[u'size']
 
+    @property
+    def mime_type(self):
+        return self.file_obj.info[u'mime_type']
+
 
 class File(BaseAbstractFile):
 
