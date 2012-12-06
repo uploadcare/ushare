@@ -18,15 +18,8 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    
-}
-
-
-DATABASES = {
     'default': dj_database_url.config(),
 }
-
-
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -172,3 +165,4 @@ UPLOADCARE = {
 
 PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.3/uploadcare/uploadcare-0.4.3.min.js'
 PYUPLOADCARE_USE_HOSTED_ASSETS = False
+FORBIDDEN_EXTENSIONS = ('exe',)

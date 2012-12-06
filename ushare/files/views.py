@@ -1,17 +1,15 @@
 from django import http
 from django.utils import simplejson as json
-from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from .models import ImageFile
-from .forms import ImageFileForm
+from .models import File
 
 
 
 class ImageFileCreateView(CreateView):
-    form_class = ImageFileForm
+    model = File
     template_name = 'files/create.html'
 
     def form_valid(self, form):
@@ -39,7 +37,7 @@ def create_view(request, *args, **kwargs):
 
 
 class ImageFileDetailView(DetailView):
-    model = ImageFile
-    context_object_name = 'image'
+    model = File
+    context_object_name = 'file'
     template_name = 'files/detail.html'
     slug_field = 'file_id'
