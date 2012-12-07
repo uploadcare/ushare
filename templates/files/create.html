@@ -23,4 +23,25 @@
 		<input type="text" class="file-url upload-success hidden" readonly="readonly" />
 		<a href="." class="upload-more upload-success hidden">Upload more?</a>
 	</div>
+
+	<p>
+		uShare is a simple app to share files.
+		You can even get your own one, just by typing:<br />
+		<code>
+			git clone git@heroku.com:ushare.git<br />
+			git remote set-url origin <i>my_heroku_repo_address</i><br />
+			git push origin master<br />
+		</code>
+		— and that's it!
+	</p>
+		{% if ALLOWED_EXTENSIONS %}
+			Allowed file extensions are: <i>{{ ALLOWED_EXTENSIONS|join:", " }}</i><br />
+		{% endif %}
+		{% if FORBIDDEN_EXTENSIONS %}
+			Forbidden file extensions are: <i>{{ FORBIDDEN_EXTENSIONS|join:", " }}</i><br />
+		{% endif %}
+		Max file size: <i>{{ MAX_FILE_SIZE }}</i> bytes.
+	<p>
+
+	</p>
 {% endblock %}

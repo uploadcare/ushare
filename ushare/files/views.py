@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponsePermanentRedirect
 from django.utils import simplejson as json
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from .models import File
@@ -26,6 +27,15 @@ class FileCreateView(CreateView):
     def get_json_response(self, context, status=200):
         content = json.dumps(context)
         return HttpResponse(content, 'application/json', status)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(FileCreateView, self).get_context_data(*args, **kwargs)
+        context.update({
+            'ALLOWED_EXTENSIONS': getattr(settings, 'ALLOWED_EXTENSIONS', ()),
+            'FORBIDDEN_EXTENSIONS': getattr(settings, 'FORBIDDEN_EXTENSIONS', ()),
+            'MAX_FILE_SIZE': getattr(settings, 'MAX_FILE_SIZE', 100 * 1024 * 1024),
+        })
+        return context
 
 
 @csrf_exempt
