@@ -11,3 +11,8 @@
 .error {
 	border: 1px solid red;
 }
+
+
+.uploadcare-widget-buttons-remove {
+	display: none !important;
+}
