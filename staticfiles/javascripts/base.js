@@ -1,4 +1,5 @@
-$(document).ready(function(){
+$(document).ready(function() {
+
 	var drawFieldErrors = function(field_name, field_errors) {
 		var $field = $('[name=' + field_name + ']'),
 			$field_wrapper = $field.parent('div.field-wrapper'),
@@ -18,6 +19,16 @@ $(document).ready(function(){
 			.find('.error').removeClass('error');
 	};
 
+	var initClipBoard = function() {
+		var clip = new ZeroClipboard.Client();
+		clip.setHandCursor(true);
+		clip.glue('id_clipboard-copy');
+
+		clip.addEventListener('onMouseDown', function(client) {
+			clip.setText($('#id_file-url').val());
+		});
+	};
+
 	$('#id_upload-form').submit(function(e){
 		e.preventDefault();
 		$(this).ajaxSubmit({
@@ -33,8 +44,9 @@ $(document).ready(function(){
 				var file_url = data.url;
 				if (file_url) {
 					$(':submit', this).hide();
-					$('input.file-url').val(file_url);
+					$('#id_file-url').val(file_url);
 					$('.upload-success.hidden').removeClass('hidden');
+					initClipBoard();
 				}
 				else {
 					$.each(data, drawFieldErrors);
@@ -43,7 +55,10 @@ $(document).ready(function(){
 		});
 	});
 
-	$('input.file-url').click(function() {
+	$('#id_file-url').click(function() {
 		$(this).select();
 	});
+
+
+
 });

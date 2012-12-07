@@ -20,7 +20,10 @@
 			</div>
 			<input type="submit" value="Upload" />
 		</form>
-		<input type="text" class="file-url upload-success hidden" readonly="readonly" />
+		<div class="upload-success hidden">
+			<input type="text" id="id_file-url" readonly="readonly" />
+			<input type="button" id="id_clipboard-copy" value="Copy to clipboard" />
+		</div>
 		<a href="." class="upload-more upload-success hidden">Upload more?</a>
 	</div>
 
