@@ -50,3 +50,8 @@ body {
 	.annotation p + h4 {
 		margin-top: 28px;
 	}
+
+.footer a.credits {
+	text-decoration: none;
+	color: #333;
+}
