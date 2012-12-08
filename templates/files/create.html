@@ -16,19 +16,22 @@
 			{{ form.file_obj }}
 		</form>
 
-		<div role="progress-bar" class="progress progress-striped active hidden">
-			<div class="bar" style="width: 0;"></div>
+		<div role="progress-bar" class="progress-bar hidden">
+			<div class="progress progress-striped active">
+				<div class="bar" style="width: 0;"></div>
+			</div>
+			<input type="button" role="upload-cancel-button" class="btn disabled" value="Cancel" />
 		</div>
 
 		<div class="upload-success hidden" role="upload-success">
 			<input type="text" class="file-url" role="file-url" readonly="readonly" />
 			<input type="button" role="clipboard-copy-button" class="btn disabled" value="Copy link" />
-			<a href="." class="upload-more">Upload more?</a>
+			<a href="." class="upload-more" role="upload-reset">Upload more?</a>
 		</div>
 
 		<div class="upload-fail hidden" role="upload-fail">
 			<span role="error-message" class="error-message"></span>
-			<a href=".">Try again!</a>
+			<a href="." role="upload-reset">Try again!</a>
 		</div>
 
 	</div>
