@@ -3,30 +3,33 @@
 
 
 {% block extra_head %}
+	{% form.media %}
 	{{ block.super }}
-	{{ form.media }}
 {% endblock %}
 
 
 {% block content %}
 	<div class="content">
 
-			<div id="upload-form-wrapper">
-				<form action="{% url files:upload %}" method="post" id="id_upload-form">
-					{% csrf_token %}
-					<div class="field-wrapper">
-						<ul class="field-error-list">
-							<li class="empty-elem"></li>
-						</ul>
-						{{ form.file_obj }}
-					</div>
-				</form>
-				<div class="upload-success hidden">
-					<input type="text" id="id_file-url" readonly="readonly" />
-					<input type="button" id="id_clipboard-copy" value="Copy to clipboard" />
-				</div>
-				<a href="." class="upload-more upload-success hidden">Upload more?</a>
-			</div>
+		<form action="{% url files:upload %}" method="post" role="upload-form">
+			{% csrf_token %}
+			{{ form.file_obj }}
+		</form>
+
+		<div role="progress-bar" class="progress progress-striped active hidden">
+			<div class="bar" style="width: 0;"></div>
+		</div>
+
+		<div class="upload-success hidden" role="upload-success">
+			<input type="text" class="file-url" role="file-url" readonly="readonly" />
+			<input type="button" role="clipboard-copy-button" class="btn disabled" value="Copy link" />
+			<a href="." class="upload-more">Upload more?</a>
+		</div>
+
+		<div class="upload-fail hidden" role="upload-fail">
+			<span role="error-message" class="error-message"></span>
+			<a href=".">Try again!</a>
+		</div>
 
 	</div>
 

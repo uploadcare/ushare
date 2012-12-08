@@ -1,61 +1,66 @@
 $(document).ready(function() {
 
-	var drawFieldErrors = function(field_name, field_errors) {
-		var $field = $('[name=' + field_name + ']'),
-			$field_wrapper = $field.parent('div.field-wrapper'),
-			$error_list = $field_wrapper.children('ul.field-error-list'),
-			$empty_error = $error_list.children('li.empty-elem');
-
-		$.each(field_errors, function() {
-			$empty_error.clone().removeClass('empty-elem').html(this.toString()).appendTo($error_list);
-		});
-		$field_wrapper.addClass('error');
-	};
-
-	var clearFieldErrors = function(container) {
-		var $container = $(container || 'body');
-		$container
-			.find('ul.field-error-list li:not(.empty-elem)').remove().end()
-			.find('.error').removeClass('error');
-	};
-
 	var initClipBoard = function() {
 		var clip = new ZeroClipboard.Client();
 		clip.setHandCursor(true);
-		clip.glue('id_clipboard-copy');
+		clip.glue($('@clipboard-copy-button').get(0));
 
 		clip.addEventListener('onMouseDown', function(client) {
-			clip.setText($('#id_file-url').val());
+			clip.setText($('@file-url').val());
 		});
 	};
 
-	$('#id_upload-form').submit(function(e){
-		e.preventDefault();
-		$(this).ajaxSubmit({
-			context: this,
-			beforeSend: function() {
-				$(this).find(':submit').attr('disabled', true).end()
-				clearFieldErrors(this);
-			},
-			complete: function() {
-				$(':submit', this).attr('disabled', false);
-			},
-			success: function(data) {
-				var file_url = data.url;
+	var uploadProgress = function(loaded, total, reserved) {
+		reserved = reserved || 0;
+		var width = loaded / total
+		$('@progress-bar .bar').width(((loaded / total) * 100 - reserved) + '%');
+	};
+
+	var uploadComplete = function(file_url, errors) {
+		var result_class = file_url ? 'progress-success' : 'progress-danger',
+			error_message = errors ? errors[0] : 'Error',
+			$progress_bar = $('@progress-bar');
+
+		$('.bar', $progress_bar).width(100 + '%');
+
+		setTimeout(function() {
+			$progress_bar.removeClass('progress-striped active').addClass(result_class);
+			setTimeout(function() {
+				$progress_bar.addClass('hidden');
 				if (file_url) {
-					$(':submit', this).hide();
-					$('#id_file-url').val(file_url);
-					$('.upload-success.hidden').removeClass('hidden');
+					$('@upload-success').removeClass('hidden').find('@file-url').val(file_url);
 					initClipBoard();
 				}
 				else {
-					$.each(data, drawFieldErrors);
+					$('@upload-fail').removeClass('hidden').find('@error-message').html(error_message);
 				};
+				}, 300);
+			}, 500);
+	};
+
+	$($('@uploadcare-uploader').data('widget').uploaders.file)
+		.on('uploadcare.api.uploader.start', function(e) {
+			$('@upload-form').addClass('hidden');
+			$('@progress-bar').removeClass('hidden');
+		})
+		.on('uploadcare.api.uploader.progress', function(e){
+			uploadProgress(e.target.loaded, e.target.fileSize, 10);
+		});
+
+	$('@upload-form').submit(function(e){
+		e.preventDefault();
+		$(this).ajaxSubmit({
+			context: this,
+			error: function() {
+				uploadComplete(false, ['Error',]);
+			},
+			success: function(data) {
+				uploadComplete(data.url, data.file_obj)
 			}
 		});
 	});
 
-	$('#id_file-url').click(function() {
+	$('@file-url').click(function() {
 		$(this).select();
 	});
 

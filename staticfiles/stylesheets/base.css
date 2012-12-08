@@ -12,6 +12,10 @@ body {
 		margin: 30px 0;
 	}
 
+	.hidden {
+		display: none;
+	}
+
 .header a {
 	text-decoration: none;
 }
@@ -21,14 +25,22 @@ body {
 	text-align: center;
 }
 
-	.content h1 {
-		font-size: 72px;
-		line-height: 1;
+	.progress {
+		height: 24px;
 	}
 
-	.content .btn {
-		font-size: 21px;
-		padding: 14px 24px;
+	.upload-success .file-url {
+		width: 557px;
+		height: 14px;
+	}
+
+	.upload-success .btn {
+		height: 24px;
+		width: 120px;
+		margin-left: 5px;
+		vertical-align: top;
+		font-size: 16px;
+		padding: 0 24px;
 	}
 
 .annotation {
@@ -38,20 +50,3 @@ body {
 	.annotation p + h4 {
 		margin-top: 28px;
 	}
-
-
-
-
-
-.empty-elem, .hidden {
-	display: none;;
-}
-
-.error {
-	border: 1px solid red;
-}
-
-
-.uploadcare-widget-buttons-remove {
-	display: none !important;
-}

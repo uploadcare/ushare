@@ -19,9 +19,10 @@
 		<script type="text/javascript">
 			ZeroClipboard.setMoviePath('{{ STATIC_URL }}flash/ZeroClipboard.swf');
 		</script>
-		<script type="text/javascript" src="{{ STATIC_URL }}javascripts/base.js"></script>
+		
 
 		{% block extra_head %}
+			<script type="text/javascript" src="{{ STATIC_URL }}javascripts/base.js"></script>
 		{% endblock %}
 	</head>
 
