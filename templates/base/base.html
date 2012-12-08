@@ -1,27 +1,58 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8" />
+
 		<title>
 			uShare
 		</title>
 
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/base.css" />
+
 		<script type="text/javascript" src="{{ STATIC_URL }}javascripts/libs/jquery-1.8.3.min.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}javascripts/libs/jquery.role.min.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}javascripts/libs/jquery.form.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}javascripts/libs/ZeroClipboard.min.js"></script>
 		<script type="text/javascript">
 			ZeroClipboard.setMoviePath('{{ STATIC_URL }}flash/ZeroClipboard.swf');
 		</script>
 		<script type="text/javascript" src="{{ STATIC_URL }}javascripts/base.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/base.css" />
-
 		{% block extra_head %}
 		{% endblock %}
 	</head>
 
 	<body>
-		{% block content %}
-		{% endblock %}
+		<div class="wrapper">
+
+			{% block header %}
+				<div class="header">
+					<ul class="nav nav-pills pull-right">
+						<li class="active">
+							<a href="#">App store</a>
+						</li>
+					</ul>
+					<a href="/">
+						<h3 class="muted">uShare</h3>
+					</a>
+				</div>
+				<hr />
+			{% endblock %}
+
+			{% block content %}
+				<div class="content"></div>
+			{% endblock %}
+
+			{% block footer %}
+				<hr />
+				<div class="footer">
+					<p>© Whitescape 2012</p>
+				</div>
+			{% endblock %}
+
+		</div>
 	</body>
 </html>

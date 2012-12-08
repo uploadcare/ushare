@@ -1,8 +1,47 @@
-#upload-form-wrapper {
-	margin-left: auto;
-	margin-right: auto;
-	width: 300px;
+body {
+	padding-top: 20px;
+	padding-bottom: 40px;
 }
+
+.wrapper {
+	margin: 0 auto;
+	max-width: 700px;
+}
+
+	.wrapper > hr {
+		margin: 30px 0;
+	}
+
+.header a {
+	text-decoration: none;
+}
+
+.content {
+	margin: 60px 0;
+	text-align: center;
+}
+
+	.content h1 {
+		font-size: 72px;
+		line-height: 1;
+	}
+
+	.content .btn {
+		font-size: 21px;
+		padding: 14px 24px;
+	}
+
+.annotation {
+	margin: 60px 0;
+}
+
+	.annotation p + h4 {
+		margin-top: 28px;
+	}
+
+
+
+
 
 .empty-elem, .hidden {
 	display: none;;

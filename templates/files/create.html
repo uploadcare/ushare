@@ -9,41 +9,68 @@
 
 
 {% block content %}
-	<div id="upload-form-wrapper">
-		<form action="{% url files:upload %}" method="post" id="id_upload-form">
-			{% csrf_token %}
-			<div class="field-wrapper">
-				<ul class="field-error-list">
-					<li class="empty-elem"></li>
-				</ul>
-				{{ form.file_obj }}
+	<div class="content">
+
+			<div id="upload-form-wrapper">
+				<form action="{% url files:upload %}" method="post" id="id_upload-form">
+					{% csrf_token %}
+					<div class="field-wrapper">
+						<ul class="field-error-list">
+							<li class="empty-elem"></li>
+						</ul>
+						{{ form.file_obj }}
+					</div>
+				</form>
+				<div class="upload-success hidden">
+					<input type="text" id="id_file-url" readonly="readonly" />
+					<input type="button" id="id_clipboard-copy" value="Copy to clipboard" />
+				</div>
+				<a href="." class="upload-more upload-success hidden">Upload more?</a>
 			</div>
-		</form>
-		<div class="upload-success hidden">
-			<input type="text" id="id_file-url" readonly="readonly" />
-			<input type="button" id="id_clipboard-copy" value="Copy to clipboard" />
-		</div>
-		<a href="." class="upload-more upload-success hidden">Upload more?</a>
+
 	</div>
 
-	<p>
-		uShare is a simple app to share files.
-		You can even get your own one, just by typing:<br />
-		<code>
-			git clone git@heroku.com:ushare.git<br />
-			git remote set-url origin <i>my_heroku_repo_address</i><br />
-			git push origin master<br />
-		</code>
-		— and that's it!
-	</p>
-		{% if ALLOWED_EXTENSIONS %}
-			Allowed file extensions are: <i>{{ ALLOWED_EXTENSIONS|join:", " }}</i><br />
-		{% endif %}
-		{% if FORBIDDEN_EXTENSIONS %}
-			Forbidden file extensions are: <i>{{ FORBIDDEN_EXTENSIONS|join:", " }}</i><br />
-		{% endif %}
-		Max file size: <i>{{ MAX_FILE_SIZE }}</i> bytes.
-	<p>
+	<hr />
 
-	</p>
+	<div class="row-fluid annotation">
+		<div class="span6">
+			<h4>What's this?</h4>
+			<p>
+				<strong>uShare</strong>
+				is a simple app to share your files.
+			</p>
+
+			<h4>With no restrictions?</h4>
+			<p>
+				<strong>Absolutely</strong>
+				with!<br />
+				The uploaded file should meet the following requirements:
+				<ol>
+					<li>not larger than {% widthratio MAX_FILE_SIZE 1048576 1 %}mb</li>
+
+					{% if ALLOWED_EXTENSIONS %}
+						<li>its extension should be one of: <i>{{ ALLOWED_EXTENSIONS|join:", " }}</i></li>
+					{% endif %}
+
+					{% if FORBIDDEN_EXTENSIONS %}
+						<li>its extension should <strong>NOT</strong> be one of: <i>{{ FORBIDDEN_EXTENSIONS|join:", " }}</i></li>
+					{% endif %}
+				</ol>
+			</p>
+		</div>
+
+		<div class="span6">
+			<h4>May I have one?</h4>
+			<p>
+				<strong>Sure</strong>,
+				just get a free <a href="http://www.heroku.com/">heroku</a> account and type:
+				<pre>
+					<code>git clone git@heroku.com:ushare.git</code>
+					<code>git remote set-url origin <i>my_heroku_repo_url</i></code>
+					<code>git push origin master</code>
+				</pre>
+				— and that's it!
+			</p>
+		</div>
+	</div>
 {% endblock %}
