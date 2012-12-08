@@ -59,6 +59,8 @@ $(document).ready(function() {
 		$(this).select();
 	});
 
-
+	$('@uploadcare-uploader').change(function() {
+		$(this).closest('form').submit();
+	});
 
 });
