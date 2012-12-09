@@ -49,12 +49,5 @@ def create_view(request, *args, **kwargs):
 class FileDetailView(DetailView):
     model = File
     context_object_name = 'file'
-    template_name = 'files/detail_image.html'
+    template_name = 'files/detail.html'
     slug_field = 'file_id'
-
-    def render_to_response(self, context):
-        obj = self.object
-        if obj.is_image:
-            return super(FileDetailView, self).render_to_response(context)
-
-        return HttpResponsePermanentRedirect(obj.file_obj.cdn_url + obj.filename)
