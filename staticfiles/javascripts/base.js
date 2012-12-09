@@ -54,13 +54,16 @@ $(document).ready(function() {
 
 	var widget = $('@uploadcare-uploader').data('widget');
 
-	$(widget.uploaders.file)
+	$([widget.uploaders.file, widget.uploaders.url])
 		.on('uploadcare.api.uploader.start', function(e) {
 			$('@upload-form').addClass('hidden');
 			$('@progress-bar').removeClass('hidden');
 		})
 		.on('uploadcare.api.uploader.progress', function(e){
 			uploadProgress(e.target.loaded, e.target.fileSize, 10);
+		})
+		.on('uploadcare.api.uploader.error', function() {
+			uploadReset();
 		});
 
 	$('@upload-cancel-button').click(function() {
