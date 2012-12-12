@@ -56,14 +56,14 @@
 				with!<br />
 				The uploaded file should meet the following requirements:
 				<ol>
-					<li>not larger than {% widthratio MAX_FILE_SIZE 1048576 1 %}mb</li>
+					<li>not larger than {% widthratio MAX_FILE_SIZE 1048576 1 %}mb;</li>
 
 					{% if ALLOWED_EXTENSIONS %}
-						<li>its extension should be one of: <i>{{ ALLOWED_EXTENSIONS|join:", " }}</i></li>
+						<li>it's extension should be one of: <i>{{ ALLOWED_EXTENSIONS|join:", " }}</i></li>
 					{% endif %}
 
 					{% if FORBIDDEN_EXTENSIONS %}
-						<li>its extension should <strong>NOT</strong> be one of: <i>{{ FORBIDDEN_EXTENSIONS|join:", " }}</i></li>
+						<li>it's extension should <strong>NOT</strong> be one of: <i>{{ FORBIDDEN_EXTENSIONS|join:", " }}.</i></li>
 					{% endif %}
 				</ol>
 			</p>
