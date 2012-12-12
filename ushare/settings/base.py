@@ -163,6 +163,6 @@ UPLOADCARE = {
     'secret': 'demoprivatekey',
 }
 
-PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.3/uploadcare/uploadcare-0.4.3.min.js'
+PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.4/uploadcare/uploadcare-0.4.4.min.js'
 PYUPLOADCARE_USE_HOSTED_ASSETS = False
 FORBIDDEN_EXTENSIONS = ('exe',)
