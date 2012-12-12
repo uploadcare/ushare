@@ -119,9 +119,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
 
     'south',
     'pyuploadcare.dj',
@@ -161,5 +161,8 @@ LOGGING = {
 UPLOADCARE = {
     'pub_key': 'demopublickey',
     'secret': 'demoprivatekey',
-    'api_version': '0.1'
 }
+
+PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.4/uploadcare/uploadcare-0.4.4.min.js'
+PYUPLOADCARE_USE_HOSTED_ASSETS = False
+FORBIDDEN_EXTENSIONS = ('exe',)

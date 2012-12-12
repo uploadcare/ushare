@@ -1,1 +1,27 @@
 {% extends 'base/base.html' %}
+
+
+
+{% block content %}
+	{% if file.is_image %}
+		<a href="{{ file.file_obj.cdn_url }}" alt="View original">
+			<img src="{{ file.file_obj.resized_700 }}" />
+		</a>
+	{% else %}
+		<p>
+			<strong>File:</strong> "{{ file.filename }}"
+		</p>
+		<p>
+			<strong>Uploaded at:</strong> {{ file.date_created|date:"H:i d.m.Y" }}
+		</p>
+		<p>
+			<strong>Size:</strong> {{ file.size }}bytes
+		</p>
+		<p>
+			<a href="{{ file.file_obj.cdn_url }}" class="btn" download="{{ file.filename }}">
+				<span class="icon-file"></span>
+				Download file
+			</a>
+		</p>
+	{% endif %}
+{% endblock %}
