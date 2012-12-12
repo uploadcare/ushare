@@ -54,7 +54,7 @@ $(document).ready(function() {
 
 	var widget = $('@uploadcare-uploader').data('widget');
 
-	$([widget.uploaders.file, widget.uploaders.url])
+	$([widget.upload.uploaders.file, widget.upload.uploaders.url])
 		.on('uploadcare.api.uploader.start', function(e) {
 			$('@upload-form').addClass('hidden');
 			$('@progress-bar').removeClass('hidden');
