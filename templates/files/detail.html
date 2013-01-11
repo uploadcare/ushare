@@ -38,7 +38,7 @@
 				</button>
 			{% endif %}
 
-			<a href="{{ file.file_obj.cdn_url }}" class="btn" download="{{ file.filename }}">
+			<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" download="{{ file.filename }}">
 				<span class="icon-file"></span>
 				Download file
 			</a>
