@@ -2,12 +2,26 @@
 
 
 
+{% block extra_head %}
+	<script type="text/javascript" src="{{ STATIC_URL }}javascripts/detail.js"></script>
+{% endblock %}
+
+
 {% block content %}
 	{% if file.is_image %}
-		<a href="{{ file.file_obj.cdn_url }}" alt="View original">
-			<img src="{{ file.file_obj.cdn_url }}" />
-		</a>
-	{% else %}
+		<div class="file-image" role="file-image">
+
+			<a href="{{ file.file_obj.cdn_url }}" alt="View original">
+				<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
+			</a>
+
+			<button class="btn file-info-button" role="file-info-button">
+				<span class="icon-info-sign"></span>
+			</button>
+		</div>
+	{% endif %}
+
+	<div class="file-info" role="file-info">
 		<p>
 			<strong>File:</strong> "{{ file.filename }}"
 		</p>
@@ -18,10 +32,16 @@
 			<strong>Size:</strong> {{ file.size }}bytes
 		</p>
 		<p>
+			{% if file.is_image %}
+				<button class="btn file-image-button" role="file-image-button">
+					<span class="icon-arrow-left"></span>
+				</button>
+			{% endif %}
+
 			<a href="{{ file.file_obj.cdn_url }}" class="btn" download="{{ file.filename }}">
 				<span class="icon-file"></span>
 				Download file
 			</a>
 		</p>
-	{% endif %}
+	</div>
 {% endblock %}
