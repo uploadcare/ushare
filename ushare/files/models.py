@@ -61,8 +61,8 @@ class BaseAbstractFile(models.Model):
 class File(BaseAbstractFile):
 
     class Meta:
-        verbose_name = _(u'image file')
-        verbose_name_plural = _(u'image files')
+        verbose_name = _(u'file')
+        verbose_name_plural = _(u'files')
 
     def __unicode__(self):
         return u'%s' % self.file_obj.cdn_url

@@ -5,7 +5,7 @@
 {% block content %}
 	{% if file.is_image %}
 		<a href="{{ file.file_obj.cdn_url }}" alt="View original">
-			<img src="{{ file.file_obj.resized_700 }}" />
+			<img src="{{ file.file_obj.cdn_url }}" />
 		</a>
 	{% else %}
 		<p>
