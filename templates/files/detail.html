@@ -25,12 +25,13 @@
 
 
 {% block content %}
-	<div class="content">
+	<div id="content" class="content">
 		{% if file.is_image %}
-			<div class="file-image" role="file-image">
+			<div class="file-image" role="file-image" itemscope itemtype="http://schema.org/ImageObject">
+				<meta itemprop="name" content="{{ file.filename }}" />
 
-				<a href="{{ file.file_obj.cdn_url }}" alt="View original">
-					<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
+				<a href="{{ file.file_obj.cdn_url }}" alt="View original" itemprop="contentURL">
+					<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" itemprop="url" />
 				</a>
 
 				<button class="btn file-info-button" role="file-info-button">
