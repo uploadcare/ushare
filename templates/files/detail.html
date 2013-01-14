@@ -30,7 +30,7 @@
 				<strong>Uploaded at:</strong> {{ file.date_created|date:"H:i d.m.Y" }}
 			</p>
 			<p>
-				<strong>Size:</strong> {{ file.size }}bytes
+				<strong>Size:</strong> {{ file.size|filesizeformat }}
 			</p>
 			<p>
 				{% if file.is_image %}

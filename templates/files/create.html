@@ -57,7 +57,7 @@
 				with!<br />
 				The uploaded file should meet the following requirements:
 				<ol>
-					<li>not larger than {% widthratio MAX_FILE_SIZE 1048576 1 %}mb;</li>
+					<li>not larger than {{ MAX_FILE_SIZE|filesizeformat }};</li>
 
 					{% if ALLOWED_EXTENSIONS %}
 						<li>it's extension should be one of: <i>{{ ALLOWED_EXTENSIONS|join:", " }}</i></li>
