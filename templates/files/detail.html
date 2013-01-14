@@ -2,6 +2,23 @@
 
 
 
+{% block title %}
+	{{ file.filename }}
+{% endblock %}
+
+
+{% block og %}
+	{{ block.super }}
+	<meta property="og:title" content="{{ file.filename }}" />
+	<meta property="og:url" content="{{ file.url }}" />
+	{% if file.is_image %}
+		<meta property="og:image" content="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
+	{% else %}
+		<meta property="og:image" content="{{ file.file_obj.cdn_url }}" />
+	{% endif %}
+{% endblock %}
+
+
 {% block extra_head %}
 	<script type="text/javascript" src="{{ STATIC_URL }}javascripts/detail.js"></script>
 {% endblock %}

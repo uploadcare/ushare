@@ -2,6 +2,13 @@
 
 
 
+{% block og %}
+	{{ block.super }}
+	<meta property="og:title" content="uShare" />
+	<meta property="og:url" content="{% url files:upload %}" />
+{% endblock %}
+
+
 {% block extra_head %}
 	{{ form.media }}
 	<script type="text/javascript" src="{{ STATIC_URL }}javascripts/upload.js"></script>
