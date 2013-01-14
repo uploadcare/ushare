@@ -1,3 +1,5 @@
+from urllib import quote as url_quote
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
@@ -31,7 +33,7 @@ class BaseAbstractFile(models.Model):
             'protocol': 'https' if use_https else 'http',
             'domain': Site.objects.get_current(),
             'url': self.get_absolute_url(),
-            'filename': self.filename,
+            'filename': url_quote(self.filename.encode('utf-8')),
         }
         return u'%(protocol)s://%(domain)s%(url)s%(filename)s' % mapping
 
