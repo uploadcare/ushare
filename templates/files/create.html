@@ -60,11 +60,21 @@
 					<li>not larger than {{ MAX_FILE_SIZE|filesizeformat }};</li>
 
 					{% if ALLOWED_EXTENSIONS %}
-						<li>it's extension should be one of: <i>{{ ALLOWED_EXTENSIONS|join:", " }}</i></li>
+						<li>
+							it's extension should be one of: 
+							{% for ext in ALLOWED_EXTENSIONS %}
+								<i>.{{ ext }}{% if not forloop.last %},{% endif %}</i>
+							{% endfor %}
+						</li>
 					{% endif %}
 
 					{% if FORBIDDEN_EXTENSIONS %}
-						<li>it's extension should <strong>NOT</strong> be one of: <i>{{ FORBIDDEN_EXTENSIONS|join:", " }}.</i></li>
+						<li>
+							it's extension should <strong>NOT</strong> be one of:
+							{% for ext in FORBIDDEN_EXTENSIONS %}
+								<i>.{{ ext }}{% if not forloop.last %},{% endif %}</i>
+							{% endfor %}
+						</li>
 					{% endif %}
 				</ol>
 			</p>

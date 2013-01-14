@@ -11,7 +11,7 @@ def extension_validator(value):
     forbidden_extensions = getattr(settings, 'FORBIDDEN_EXTENSIONS', ())
 
     if extension in forbidden_extensions or (allowed_extensions and extension not in allowed_extensions):
-        raise ValidationError(u'"%s" is not a permitted file extension.' % extension)
+        raise ValidationError(u'".%s" is not a permitted file extension.' % extension)
 
 
 def size_validator(value):
