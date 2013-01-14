@@ -48,8 +48,8 @@ $(document).ready(function() {
 				else {
 					$('@upload-fail').removeClass('hidden').find('@error-message').html(error_message);
 				};
-				}, 300);
-			}, 500);
+			}, 300);
+		}, 500);
 	};
 
 	var widget = $('@uploadcare-uploader').data('widget');

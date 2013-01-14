@@ -8,40 +8,42 @@
 
 
 {% block content %}
-	{% if file.is_image %}
-		<div class="file-image" role="file-image">
+	<div class="content">
+		{% if file.is_image %}
+			<div class="file-image" role="file-image">
 
-			<a href="{{ file.file_obj.cdn_url }}" alt="View original">
-				<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
-			</a>
+				<a href="{{ file.file_obj.cdn_url }}" alt="View original">
+					<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
+				</a>
 
-			<button class="btn file-info-button" role="file-info-button">
-				<span class="icon-info-sign"></span>
-			</button>
-		</div>
-	{% endif %}
-
-	<div class="file-info" role="file-info">
-		<p>
-			<strong>File:</strong> "{{ file.filename }}"
-		</p>
-		<p>
-			<strong>Uploaded at:</strong> {{ file.date_created|date:"H:i d.m.Y" }}
-		</p>
-		<p>
-			<strong>Size:</strong> {{ file.size }}bytes
-		</p>
-		<p>
-			{% if file.is_image %}
-				<button class="btn file-image-button" role="file-image-button">
-					<span class="icon-arrow-left"></span>
+				<button class="btn file-info-button" role="file-info-button">
+					<span class="icon-info-sign"></span>
 				</button>
-			{% endif %}
+			</div>
+		{% endif %}
 
-			<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" download="{{ file.filename }}">
-				<span class="icon-file"></span>
-				Download file
-			</a>
-		</p>
+		<div class="file-info" role="file-info">
+			<p>
+				<strong>File:</strong> "{{ file.filename }}"
+			</p>
+			<p>
+				<strong>Uploaded at:</strong> {{ file.date_created|date:"H:i d.m.Y" }}
+			</p>
+			<p>
+				<strong>Size:</strong> {{ file.size }}bytes
+			</p>
+			<p>
+				{% if file.is_image %}
+					<button class="btn file-image-button" role="file-image-button">
+						<span class="icon-arrow-left"></span>
+					</button>
+				{% endif %}
+
+				<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" download="{{ file.filename }}">
+					<span class="icon-file"></span>
+					Download file
+				</a>
+			</p>
+		</div>
 	</div>
 {% endblock %}

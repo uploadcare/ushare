@@ -5,7 +5,7 @@ uShare
 ## Cheat sheet.
 
 <pre>
-  <code>git clone git@heroku.com:ushare.git</code>
+  <code>git clone git@github.com:uploadcare/ushare.git</code>
   <code>git remote set-url origin <i>my_heroku_repo_url</i></code>
   <code>git push origin master</code>
 </pre>
@@ -32,7 +32,7 @@ uShare
 3.
   Get your copy of uShare repo and get in there:
   <pre>
-    <code>git clone git@heroku.com:ushare.git my-ushare</code>
+    <code>git clone git@github.com:uploadcare/ushare.git my-ushare</code>
     <code>cd my-ushare</code>
   </pre>
 

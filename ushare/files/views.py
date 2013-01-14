@@ -22,7 +22,7 @@ class FileCreateView(CreateView):
 
     def form_invalid(self, form):
         context = form.errors
-        return self.get_json_response(context) # 409 status code?
+        return self.get_json_response(context)
 
     def get_json_response(self, context, status=200):
         content = json.dumps(context)

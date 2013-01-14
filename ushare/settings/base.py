@@ -1,6 +1,5 @@
 # Django settings for ushare project.
 import os
-
 import dj_database_url
 
 

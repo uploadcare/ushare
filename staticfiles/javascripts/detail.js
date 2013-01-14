@@ -1,4 +1,5 @@
-$(function() {
+$(document).ready(function() {
+
 	$('@file-info-button').click(function() {
 		$('@file-info').hide();
 		$('@file-image').hide('slide', {direction: 'left'}, 200, function() {
@@ -11,4 +12,5 @@ $(function() {
 			$('@file-image').show('slide', {direction: 'left'}, 200);
 		});
 	});
+
 });

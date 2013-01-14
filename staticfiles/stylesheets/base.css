@@ -55,6 +55,10 @@ body {
 		padding: 0 24px;
 	}
 
+	.file-info {
+		text-align: left;
+	}
+
 	.file-image + .file-info {
 		display: none;
 	}
