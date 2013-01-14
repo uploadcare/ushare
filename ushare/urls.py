@@ -18,8 +18,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^files/', include('ushare.files.urls', namespace='files')),
     url(r'^$', 'ushare.files.views.create_view', name='index'),
+    url(r'^', include('ushare.files.urls', namespace='files')),
 )
 
 
