@@ -15,6 +15,8 @@ $(document).ready(function() {
 		};
 	};
 
+	var progressTimeout, xhr;
+
 	var uploadProgress = function(loaded, total, reserved) {
 		reserved = reserved || 0;
 		var width = loaded / total
@@ -25,6 +27,8 @@ $(document).ready(function() {
 		$('@progress-bar')
 		.find('.progress').removeClass('progress-success progress-danger').addClass('progress-striped active')
 			.find('.bar').width(0);
+		clearTimeout(progressTimeout);
+		if (xhr.abort != undefined) xhr.abort();
 		$('@progress-bar, @upload-success, @upload-fail').addClass('hidden');
 		$('@upload-form').removeClass('hidden');
 		if (window.clip) window.clip.hide();
@@ -37,9 +41,9 @@ $(document).ready(function() {
 
 		$('.bar', $progress_bar).width(100 + '%');
 
-		setTimeout(function() {
+		progressTimeout = setTimeout(function() {
 			$('.progress', $progress_bar).removeClass('progress-striped active').addClass(result_class);
-			setTimeout(function() {
+			progressTimeout = setTimeout(function() {
 				$progress_bar.addClass('hidden');
 				if (file_url) {
 					$('@upload-success').removeClass('hidden').find('@file-url').val(file_url);
@@ -79,10 +83,14 @@ $(document).ready(function() {
 
 	$('@upload-form').submit(function(e){
 		e.preventDefault();
-		$(this).ajaxSubmit({
-			context: this,
-			error: function() {
-				uploadComplete(false, ['Error',]);
+		var $this = $(this);
+		xhr = $.ajax({
+			data: $this.serialize(),
+			url: $this.attr('action'),
+			type: $this.attr('method'),
+			context: $this,
+			error: function(request, status) {
+				if (status != 'abort') uploadComplete(false, ['Error',]);
 			},
 			success: function(data) {
 				uploadComplete(data.url, data.file_obj)
