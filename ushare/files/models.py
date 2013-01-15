@@ -1,13 +1,10 @@
-from urllib import quote as url_quote
-from short_url import encode_url
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
 
 from pyuploadcare.dj import FileField
 
-from .utils import get_extension
+from .utils import get_extension, encode_url
 from .validators import extension_validator, size_validator
 
 

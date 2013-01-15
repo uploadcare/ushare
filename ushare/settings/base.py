@@ -165,3 +165,7 @@ UPLOADCARE = {
 PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.4/uploadcare/uploadcare-0.4.4.min.js'
 PYUPLOADCARE_USE_HOSTED_ASSETS = False
 FORBIDDEN_EXTENSIONS = ('exe',)
+
+SHORT_URL_ALPHABET = 'mqbpygnc4rv8da6j2etxuk3fw95z7hs'
+SHORT_URL_BLOCK_SIZE = 24
+SHORT_URL_MIN_LENGTH = 6

@@ -1,5 +1,3 @@
-from short_url import decode_url
-
 from django.http import HttpResponse, HttpResponsePermanentRedirect, Http404
 from django.utils import simplejson as json
 from django.views.generic import DetailView
@@ -9,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.utils.translation import ugettext_lazy as _
 
 from .models import File
+from .utils import decode_url
 
 
 
@@ -63,4 +62,4 @@ class FileDetailView(DetailView):
             obj_id = decode_url(encoded_id)
             return queryset.get(pk=obj_id)
         except (KeyError, TypeError, ValueError, File.DoesNotExist):
-            raise Http404(_(u'No files found matching the query'))
+            raise Http404(unicode(_(u'No files found matching the query')))
