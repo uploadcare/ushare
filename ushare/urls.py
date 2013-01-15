@@ -19,16 +19,16 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', 'ushare.files.views.create_view', name='index'),
-    url(r'^files/', include('ushare.files.urls', namespace='files')),
+    url(r'^', include('ushare.files.urls', namespace='files')),
 )
 
 
 if settings.DEBUG:
-    urlpatterns += patterns('',
+    urlpatterns = patterns('',
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.STATIC_ROOT,
         }),
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.MEDIA_ROOT,
         }),
-    )
+    ) + urlpatterns

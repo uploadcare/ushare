@@ -1,4 +1,5 @@
 from urllib import quote as url_quote
+from short_url import encode_url
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -26,16 +27,19 @@ class BaseAbstractFile(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('files:detail', (self.file_id,))
+        return ('files:detail', (self.encoded_id,))
 
     def url(self, use_https=False):
         mapping = {
             'protocol': 'https' if use_https else 'http',
             'domain': Site.objects.get_current(),
             'url': self.get_absolute_url(),
-            'filename': url_quote(self.filename.encode('utf-8')),
         }
-        return u'%(protocol)s://%(domain)s%(url)s%(filename)s' % mapping
+        return u'%(protocol)s://%(domain)s%(url)s' % mapping
+
+    @property
+    def encoded_id(self):
+        return encode_url(self.id)
 
     # A bunch of proxy-methods.
 
