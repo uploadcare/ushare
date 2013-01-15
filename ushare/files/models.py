@@ -66,7 +66,7 @@ class BaseAbstractFile(models.Model):
 
     @property
     def is_textual(self):
-        max_textfile_size = 3 * 1024 * 1024    # 3 MB.
+        max_textfile_size = 1 * 1024 * 1024    # 1 MB.
         return (self.lexer is not None) and self.size <= max_textfile_size
 
     @property
@@ -91,10 +91,13 @@ class BaseAbstractFile(models.Model):
 
     @property
     def lexer(self):
-        try:
-            lexer = lexers.get_lexer_for_filename(self.filename)
-        except ClassNotFound:
-            lexer = None
+        lexer = getattr(self, '_lexer', None)
+        if lexer is None:
+            try:
+                lexer = lexers.get_lexer_for_filename(self.filename)
+            except ClassNotFound:
+                lexer = None
+            self._lexer = lexer
         return lexer
 
 
