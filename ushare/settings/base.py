@@ -6,9 +6,9 @@ import dj_database_url
 
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG')
 TEMPLATE_DEBUG = DEBUG
-PRODUCTION_MODE = False
+PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION_MODE')
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -158,8 +158,8 @@ LOGGING = {
 }
 
 UPLOADCARE = {
-    'pub_key': 'demopublickey',
-    'secret': 'demoprivatekey',
+    'pub_key': os.environ.get('UPLOADCARE_PUBLIC_KEY'),
+    'secret': os.environ.get('UPLOADCARE_PRIVATE_KEY'),
 }
 
 PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.4/uploadcare/uploadcare-0.4.4.min.js'
