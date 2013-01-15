@@ -72,7 +72,7 @@ $(document).ready(function() {
 
 	$('@upload-cancel-button').click(function() {
 		$(widget.template).trigger('uploadcare.widget.template.cancel');
-		uploadReset()
+		uploadReset();
 	});
 
 	$('@upload-reset').click(function(e) {
