@@ -59,29 +59,26 @@ body {
 		text-align: left;
 	}
 
-	.file-image + .file-info {
+	.file-preview + .file-info {
 		display: none;
 	}
 
-	.file-image {
-		position: relative;
+	.file-preview {
+		cursor: pointer;
 	}
 
-		.file-image img {
-			margin: 0 auto;
-			max-width: 700px;
-			display: block;
+		.file-image {
+			position: relative;
 		}
 
-		.file-info-button {
-			position: absolute;
-			top: 0;
-			right: 0;
-			display: none;
-		}
+			.file-image img {
+				margin: 0 auto;
+				max-width: 700px;
+				display: block;
+			}
 
-		.file-image:hover .file-info-button {
-			display: block;
+		.highlight {
+			text-align: left;
 		}
 
 .annotation {

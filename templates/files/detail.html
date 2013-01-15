@@ -11,11 +11,6 @@
 	{{ block.super }}
 	<meta property="og:title" content="{{ file.filename }}" />
 	<meta property="og:url" content="{{ file.url }}" />
-	{% if file.is_image %}
-		<meta property="og:image" content="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
-	{% else %}
-		<meta property="og:image" content="{{ file.file_obj.cdn_url }}" />
-	{% endif %}
 {% endblock %}
 
 
@@ -25,18 +20,17 @@
 
 
 {% block content %}
-	<div id="content" class="content">
-		{% if file.is_image %}
-			<div class="file-image" role="file-image" itemscope itemtype="http://schema.org/ImageObject">
-				<meta itemprop="name" content="{{ file.filename }}" />
+	<div class="content">
 
-				<a href="{{ file.file_obj.cdn_url }}" alt="View original" itemprop="contentURL">
-					<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" itemprop="url" />
-				</a>
-
-				<button class="btn file-info-button" role="file-info-button">
-					<span class="icon-info-sign"></span>
-				</button>
+		{% if file.has_preview %}
+			<div class="file-preview" role="file-preview" title="Click for details">
+				{% if file.is_image %}
+					<div class="file-image">
+						<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
+					</div>
+				{% elif file.is_textual %}
+					{{ file.pygmented|safe }}
+				{% endif %}
 			</div>
 		{% endif %}
 
@@ -51,8 +45,8 @@
 				<strong>Size:</strong> {{ file.size|filesizeformat }}
 			</p>
 			<p>
-				{% if file.is_image %}
-					<button class="btn file-image-button" role="file-image-button">
+				{% if file.has_preview %}
+					<button class="btn" role="file-preview-button">
 						<span class="icon-arrow-left"></span>
 					</button>
 				{% endif %}

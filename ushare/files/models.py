@@ -1,3 +1,7 @@
+from urllib import urlopen
+from pygments import lexers, formatters, highlight, styles
+from pygments.util import ClassNotFound
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
@@ -49,16 +53,49 @@ class BaseAbstractFile(models.Model):
         return get_extension(self.filename)
 
     @property
-    def is_image(self):
-        return self.file_obj.info[u'is_image']
-
-    @property
     def size(self):
         return self.file_obj.info[u'size']
 
     @property
     def mime_type(self):
         return self.file_obj.info[u'mime_type']
+
+    @property
+    def is_image(self):
+        return self.file_obj.info[u'is_image']
+
+    @property
+    def is_textual(self):
+        max_textfile_size = 3 * 1024 * 1024    # 3 MB.
+        return (self.lexer is not None) and self.size <= max_textfile_size
+
+    @property
+    def has_preview(self):
+        return self.is_image or self.is_textual
+
+    @property
+    def pygmented(self):
+        if self.is_textual:
+            style = styles.get_style_by_name('friendly')
+            formatter = formatters.HtmlFormatter(style=style)
+            style = formatter.get_style_defs()
+            
+            file_buffer = urlopen(self.file_obj.cdn_url)
+
+            pygmented_content = u'<style>%s</style>\n' % style
+            pygmented_content += highlight(file_buffer.read(), self.lexer, formatter) 
+            
+            file_buffer.close()
+            
+            return pygmented_content
+
+    @property
+    def lexer(self):
+        try:
+            lexer = lexers.get_lexer_for_filename(self.filename)
+        except ClassNotFound:
+            lexer = None
+        return lexer
 
 
 class File(BaseAbstractFile):
