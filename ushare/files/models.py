@@ -15,16 +15,11 @@ from .validators import extension_validator, size_validator
 
 class BaseAbstractFile(models.Model):
     file_obj = FileField(verbose_name=_(u'file'), null=True, validators=[extension_validator, size_validator,])
-    file_id = models.TextField(_(u'uploadcare id'), default=u'', editable=False)
     date_created = models.DateTimeField(_(u'date created'), auto_now_add=True, null=True)
 
     class Meta:
         abstract = True
         ordering = ('-date_created',)
-
-    def save(self, *args, **kwargs):
-        self.file_id = self.file_obj.info[u'file_id']
-        return super(BaseAbstractFile, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
@@ -43,6 +38,10 @@ class BaseAbstractFile(models.Model):
         return encode_url(self.id)
 
     # A bunch of proxy-methods.
+
+    @property
+    def file_id(self):
+        return self.file_obj.info[u'file_id']
 
     @property
     def filename(self):
