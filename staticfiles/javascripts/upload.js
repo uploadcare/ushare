@@ -30,6 +30,8 @@ $(document).ready(function() {
 		clearTimeout(progressTimeout);
 		if (xhr.abort != undefined) xhr.abort();
 		$('@progress-bar, @upload-success, @upload-fail').addClass('hidden');
+		$('@file-url-link').attr('href', '');
+		$('@file-url').val('');
 		$('@upload-form').removeClass('hidden');
 		if (window.clip) window.clip.hide();
 	};
@@ -46,7 +48,9 @@ $(document).ready(function() {
 			progressTimeout = setTimeout(function() {
 				$progress_bar.addClass('hidden');
 				if (file_url) {
-					$('@upload-success').removeClass('hidden').find('@file-url').val(file_url);
+					$('@upload-success').removeClass('hidden')
+						.find('@file-url').val(file_url).end()
+						.find('@file-url-link').attr('href', file_url);
 					initClipBoard();
 				}
 				else {

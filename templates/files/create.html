@@ -19,7 +19,7 @@
 {% block content %}
 	<div class="content">
 
-		<form action="{% url files:upload %}" method="post" role="upload-form">
+		<form action="{% url files:upload %}" method="post" role="upload-form" class="upload-form">
 			{% csrf_token %}
 			{{ form.file_obj }}
 		</form>
@@ -32,8 +32,13 @@
 		</div>
 
 		<div class="upload-success hidden" role="upload-success">
-			<input type="text" class="file-url" role="file-url" readonly="readonly" />
-			<input type="button" role="clipboard-copy-button" class="btn" value="Copy link" />
+			<div class="input-append">
+				<input type="text" class="file-url" role="file-url" readonly="readonly" />
+				<a class="btn file-url-link" role="file-url-link" href="#" title="View file">
+					<span class="icon-share-alt"></span>
+				</a>
+			</div>
+			<input type="button" role="clipboard-copy-button" class="btn clipboard-btn" value="Copy link" />
 			<a href="." class="upload-more" role="upload-reset">Upload more?</a>
 		</div>
 
