@@ -63,6 +63,8 @@ class BaseAbstractFile(models.Model):
     def is_image(self):
         return self.file_obj.info[u'is_image']
 
+    # And some additional.
+
     @property
     def is_textual(self):
         max_textfile_size = 1 * 1024 * 1024    # 1 MB.
