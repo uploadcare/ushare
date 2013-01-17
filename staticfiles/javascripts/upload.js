@@ -30,7 +30,7 @@ $(document).ready(function() {
 		clearTimeout(progressTimeout);
 		if (xhr.abort != undefined) xhr.abort();
 		$('@progress-bar, @upload-success, @upload-fail').addClass('hidden');
-		$('@file-url-link').attr('href', '');
+		$('@file-url-link').attr('href', '#');
 		$('@file-url').val('');
 		$('@upload-form').removeClass('hidden');
 		if (window.clip) window.clip.hide();

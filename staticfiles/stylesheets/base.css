@@ -136,3 +136,23 @@ body {
 	text-decoration: none;
 	color: #333;
 }
+
+.footer .mailto:hover .mailto-regular {
+	display: none;
+}
+
+.footer .mailto:hover .mailto-hover {
+	display: inline;
+}
+
+.footer .mailto .mailto-hover {
+	display: none;
+}
+
+.trollface {
+	background: url(../images/trollface.gif) 1px 0 no-repeat;
+	background-size: 10px 10px;
+	display: inline-block;
+	width: 11px;
+	height: 10px;
+}
