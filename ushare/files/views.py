@@ -63,3 +63,61 @@ class FileDetailView(DetailView):
             return queryset.get(pk=obj_id)
         except (KeyError, TypeError, ValueError, File.DoesNotExist):
             raise Http404(unicode(_(u'No files found matching the query')))
+
+
+class FileOEmbedView(FileDetailView):
+
+    def render_to_response(self, *args, **kwargs):
+        content = json.dumps(self.get_oembed_data())
+        return HttpResponse(content, 'application/json')
+
+    def get_oembed_data(self):
+        data = self.common()
+        content_type = data.get('type', u'link')
+        extra_data = getattr(self, content_type)()    # TODO: Add callable() blah-blah-blah.
+        data.update(extra_data)
+        return data
+
+    def common(self):
+        return {
+            'type': self.get_content_type(),
+            'version': u'1.0',
+
+            'title': self.object.filename,
+            #'author_name': u'',
+            #'author_url': u'',
+            'provider_name': u'uShare',
+            'provider_url': self.object.domain,
+            #'cache_age': u'',
+            #'thumbnail_url': u'',
+            #'thumbnail_width': u'',
+            #'thumbnail_height': u'',
+        }
+
+    def photo(self):
+        return {
+            'url': self.object.file_obj.cdn_url,
+            'width': u'1000',
+            'height': u'1000',
+        }
+
+    def video(self):
+        return {
+            'html': u'',
+            'width': u'',
+            'height': u'',
+        }
+
+    def link(self):
+        return {}
+
+    def rich(self):
+        return {
+            'html': u'',
+            'width': u'',
+            'height': u'',
+        }
+
+    def get_content_type(self):
+        return u'photo' if self.object.is_image else u'link'
+

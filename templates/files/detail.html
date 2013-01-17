@@ -16,6 +16,7 @@
 
 {% block extra_head %}
 	<script type="text/javascript" src="{{ STATIC_URL }}javascripts/detail.js"></script>
+	<link rel="alternate" type="application/json+oembed" href="{{ file.url }}oembed/" title="{{ file.filename }}" />
 {% endblock %}
 
 

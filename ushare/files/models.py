@@ -28,7 +28,7 @@ class BaseAbstractFile(models.Model):
     def url(self, use_https=False):
         mapping = {
             'protocol': 'https' if use_https else 'http',
-            'domain': Site.objects.get_current(),
+            'domain': self.domain,
             'url': self.get_absolute_url(),
         }
         return u'%(protocol)s://%(domain)s%(url)s' % mapping
@@ -100,6 +100,13 @@ class BaseAbstractFile(models.Model):
                 lexer = None
             self._lexer = lexer
         return lexer
+
+    @property
+    def domain(self):
+        domain = getattr(self, '_domain', None)
+        if domain is None:
+            self._domain = Site.objects.get_current().domain
+        return self._domain
 
 
 class File(BaseAbstractFile):
