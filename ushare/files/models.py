@@ -5,6 +5,7 @@ from pygments.util import ClassNotFound
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
+from django.conf import settings
 
 from pyuploadcare.dj import FileField
 
@@ -64,6 +65,10 @@ class BaseAbstractFile(models.Model):
         return self.file_obj.info[u'is_image']
 
     # And some additional.
+
+    @property
+    def is_inline(self):
+        return self.extension in settings.INLINE_FILE_FORMATS
 
     @property
     def is_textual(self):
