@@ -50,10 +50,6 @@ body {
 		height: 14px;
 	}
 
-	.upload-success .btn {
-
-	}
-
 	.upload-success .file-url-link {
 		height: 14px;
 		padding: 2px 10px 6px 10px;
@@ -98,20 +94,19 @@ body {
 		padding-bottom: 5px;
 	}
 
-	.file-info {
-		text-align: left;
-	}
-
-	.file-preview + .file-info {
-		display: none;
-	}
-
 	.file-preview {
-		cursor: pointer;
+		position: relative;
 	}
 
-		.file-image {
-			position: relative;
+		.file-preview .file-info-button {
+			position: absolute;
+			display: none;
+			top: 0;
+			right: 0;
+		}
+
+		.file-preview:hover .file-info-button {
+			display: block;
 		}
 
 			.file-image img {
@@ -123,6 +118,14 @@ body {
 		.highlight {
 			text-align: left;
 		}
+
+	.file-preview + .file-info {
+		display: none;
+	}
+
+	.file-info {
+		text-align: left;
+	}
 
 .annotation {
 	margin: 60px 0;

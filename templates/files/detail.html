@@ -25,12 +25,13 @@
 		{% if file.has_preview %}
 			<div class="file-preview" role="file-preview" title="Click for details">
 				{% if file.is_image %}
-					<div class="file-image">
+					<a href="{{ file.file_obj.cdn_url }}" class="file-image" title="View original">
 						<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
-					</div>
+					</a>
 				{% elif file.is_textual %}
 					{{ file.pygmented|safe }}
 				{% endif %}
+			<button class="btn file-info-button" role="file-info-button"><span class="icon-info-sign"></span></button>
 			</div>
 		{% endif %}
 

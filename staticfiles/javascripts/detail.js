@@ -3,9 +3,9 @@ $(document).ready(function() {
 	var $file_preview = $('@file-preview'),
 		$file_info = $('@file-info');
 
-	$file_preview.click(function() {
+	$('@file-info-button').click(function() {
 		$file_info.hide();
-		$(this).hide('slide', {direction: 'left'}, 200, function() {
+		$file_preview.hide('slide', {direction: 'left'}, 200, function() {
 			$file_info.show('slide', {direction: 'right'}, 200);
 		});
 	});
