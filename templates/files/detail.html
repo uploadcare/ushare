@@ -15,7 +15,7 @@
 	<meta property="og:description" content="File uploaded at: {{ file.date_created|date:"H:i d.m.Y e" }}" />
 
 	{% if file.is_image %}
-		{# <meta property="og:image:url" content="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/300x300/" /> #}
+		<meta property="og:image:url" content="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/300x300/" />
 		<meta property="og:image:secure_url" content="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/300x300/" />
 	{% endif %}
 {% endblock %}
