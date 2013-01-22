@@ -56,7 +56,7 @@
 			</p>
 			<p>
 				{% if file.has_preview %}
-					<button class="btn" role="file-preview-button">
+					<button class="btn" role="file-preview-button" class="file-preview-button">
 						<span class="icon-arrow-left"></span>
 					</button>
 				{% endif %}
@@ -67,7 +67,7 @@
 				</a>
 
 				{% if file.is_inline %}
-					<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn">
+					<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" class="file-view-button">
 						<span class="icon-file"></span>
 						View file
 					</a>
