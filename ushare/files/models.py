@@ -79,7 +79,7 @@ class BaseAbstractFile(models.Model):
 
     @property
     def text_content(self):
-        if self.size <= MAX_TEXTFILE_SIZE:
+        if self.size <= MAX_TEXTFILE_SIZE and not self.is_image:
             possible_markdown = self.extension in (MARKDOWN_FILE_EXTENSIONS + TEXTILE_FILE_EXTENSIONS)
             fake_extension = self.extension if not possible_markdown else u'txt'
             fake_filename = u'.'.join((self.filename, fake_extension,))
