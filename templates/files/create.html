@@ -5,7 +5,9 @@
 {% block og %}
 	{{ block.super }}
 	<meta property="og:title" content="uShare" />
-	<meta property="og:url" content="{% url files:upload %}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+	<meta property="og:description" content="Simple file sharing service" />
 {% endblock %}
 
 

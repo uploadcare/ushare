@@ -18,7 +18,7 @@ class FileCreateView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         context = {
-            'url': self.object.url(),
+            'url': self.object.url(self.request.is_secure()),
         }
         return self.get_json_response(context)
 

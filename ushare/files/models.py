@@ -29,7 +29,7 @@ class BaseAbstractFile(models.Model):
     def url(self, use_https=False):
         mapping = {
             'protocol': 'https' if use_https else 'http',
-            'domain': Site.objects.get_current(),
+            'domain': Site.objects.get_current().domain,
             'url': self.get_absolute_url(),
         }
         return u'%(protocol)s://%(domain)s%(url)s' % mapping
