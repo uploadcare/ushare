@@ -39,7 +39,7 @@
 		{% endblock %}
 	</head>
 
-	<body>
+	<body class="{% if request.mobile %}mobile{% endif %}">
 		<div class="wrapper">
 
 			{% block header %}

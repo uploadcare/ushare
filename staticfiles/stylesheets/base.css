@@ -160,10 +160,10 @@ body {
 	height: 10px;
 }
 
-@media only handheld {
-	/* rules for iPad in landscape orientation */
+body.mobile {
+	/* Define styles for mobile browsers here. */
+}
 
-	.file-preview-button, .file-info-button {
-		display: none;
-	}
+body.mobile .file-info-button, body.mobile .file-preview-button {
+	display: none;
 }
