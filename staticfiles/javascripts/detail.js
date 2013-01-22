@@ -1,19 +1,13 @@
 $(document).ready(function() {
 
-	var $file_preview = $('@file-preview'),
-		$file_info = $('@file-info');
+	var slider = new Swipe($('#content').get(0));
 
 	$('@file-info-button').click(function() {
-		$file_info.hide();
-		$file_preview.hide('slide', {direction: 'left'}, 200, function() {
-			$file_info.show('slide', {direction: 'right'}, 200);
-		});
+		slider.next();
 	});
 
 	$('@file-preview-button').click(function() {
-		$file_info.hide('slide', {direction: 'right'}, 200, function() {
-			$file_preview.show('slide', {direction: 'left'}, 200);
-		});
+		slider.prev();
 	});
 
 });
