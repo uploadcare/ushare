@@ -164,6 +164,6 @@ body.mobile {
 	/* Define styles for mobile browsers here. */
 }
 
-body.mobile .file-info-button, body.mobile .file-preview-button {
+body.mobile .file-preview .file-info-button, body.mobile .file-preview-button {
 	display: none;
 }
