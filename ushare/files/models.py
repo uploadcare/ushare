@@ -18,6 +18,7 @@ from .validators import extension_validator, size_validator
 
 TEXTILE_FILE_EXTENSIONS = ('textile',)
 MARKDOWN_FILE_EXTENSIONS = ('md',)
+MAX_TEXTFILE_SIZE = 1 * 1024 * 1024
 
 
 class BaseAbstractFile(models.Model):
@@ -77,46 +78,39 @@ class BaseAbstractFile(models.Model):
         return self.extension in settings.INLINE_FILE_FORMATS
 
     @property
-    def is_textual(self):
-        max_textfile_size = 1 * 1024 * 1024    # 1 MB.
-        return (self.lexer is not None) and self.size <= max_textfile_size
+    def text_content(self):
+        if self.size <= MAX_TEXTFILE_SIZE:
+            possible_markdown = self.extension in (MARKDOWN_FILE_EXTENSIONS + TEXTILE_FILE_EXTENSIONS)
+            fake_extension = self.extension if not possible_markdown else u'txt'
+            fake_filename = u'.'.join((self.filename, fake_extension,))
 
-    @property
-    def has_preview(self):
-        return self.is_image or self.is_textual
-
-    @property
-    def pygmented(self):
-        if self.is_textual:
             style = styles.get_style_by_name('friendly')
             formatter = formatters.HtmlFormatter(style=style)
             style = formatter.get_style_defs()
-            html = u''
 
             f = urlopen(self.file_obj.cdn_url)
-            data = f.read().decode('utf-8')
-            if isinstance(self.lexer, lexers.TextLexer) and self.extension in (MARKDOWN_FILE_EXTENSIONS + TEXTILE_FILE_EXTENSIONS):
-                format_string = u'<div class="%s"><pre>%s</pre></div>'
-                if self.extension in MARKDOWN_FILE_EXTENSIONS:
-                    html += format_string % ('markdown', markdown(data))
-                elif self.extension in TEXTILE_FILE_EXTENSIONS:
-                    html += format_string % ('textile', textile(data))
-            else:
-                html += u'<style>%s</style>\n%s' % (style, highlight(data, self.lexer, formatter))
+            data = f.read()
             f.close()
 
-            return html
-
-    @property
-    def lexer(self):
-        lexer = getattr(self, '_lexer', None)
-        if lexer is None:
             try:
-                lexer = lexers.get_lexer_for_filename(self.filename)
-            except ClassNotFound:
-                lexer = None
-            self._lexer = lexer
-        return lexer
+                data = data.decode('utf-8')
+                lexer = lexers.guess_lexer_for_filename(fake_filename, data)
+            except (ClassNotFound, UnicodeDecodeError):
+                return None
+
+            if isinstance(lexer, lexers.TextLexer) and possible_markdown:
+                format_string = u'<div class="%s"><pre>%s</pre></div>'
+
+                if self.extension in MARKDOWN_FILE_EXTENSIONS:
+                    data = format_string % ('markdown', markdown(data))
+
+                if self.extension in TEXTILE_FILE_EXTENSIONS:
+                    data = format_string % ('textile', textile(data))
+
+            else:
+                data = u'<style>%s</style>\n%s' % (style, highlight(data, lexer, formatter))
+
+            return data
 
 
 class File(BaseAbstractFile):

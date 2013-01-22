@@ -28,56 +28,59 @@
 
 
 {% block content %}
-	<div class="content" id="content">
+	{% with file.text_content as file_text_content %}
+		<div class="content" id="content">
+			<div>
 
-		<div>
-			{% if file.has_preview %}
-				<div class="file-preview" role="file-preview">
-					{% if file.is_image %}
-						<a href="{{ file.file_obj.cdn_url }}" class="file-image" title="View original">
-							<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
-						</a>
-					{% elif file.is_textual %}
-						{{ file.pygmented|safe }}
-					{% endif %}
-					<button class="btn file-info-button" role="file-info-button">
-						<span class="icon-info-sign"></span>
-					</button>
-				</div>
-			{% endif %}
-
-			<div class="file-info" role="file-info">
-				<p>
-					<strong>File:</strong> "{{ file.filename }}"
-				</p>
-				<p>
-					<strong>Uploaded at:</strong> {{ file.date_created|date:"H:i d.m.Y e" }}
-				</p>
-				<p>
-					<strong>Size:</strong> {{ file.size|filesizeformat }}
-				</p>
-				<p>
-					{% if file.has_preview %}
-						<button class="btn file-preview-button" role="file-preview-button">
-							<span class="icon-arrow-left"></span>
+				{% if file.is_image or file_text_content %}
+					<div class="file-preview" role="file-preview">
+						
+						{% if file.is_image %}
+							<a href="{{ file.file_obj.cdn_url }}" class="file-image" title="View original">
+								<img src="{{ file.file_obj.cdn_url }}-/stretch/off/-/resize/700x/" />
+							</a>
+						{% elif file_text_content %}
+							{{ file_text_content|safe }}
+						{% endif %}
+						
+						<button class="btn file-info-button" role="file-info-button">
+							<span class="icon-info-sign"></span>
 						</button>
-					{% endif %}
+					</div>
+				{% endif %}
 
-					<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" download="{{ file.filename }}">
-						<span class="icon-download-alt"></span>
-						Download file
-					</a>
+				<div class="file-info" role="file-info">
+					<p>
+						<strong>File:</strong> "{{ file.filename }}"
+					</p>
+					<p>
+						<strong>Uploaded at:</strong> {{ file.date_created|date:"H:i d.m.Y e" }}
+					</p>
+					<p>
+						<strong>Size:</strong> {{ file.size|filesizeformat }}
+					</p>
+					<p>
+						{% if file.is_image or file_text_content %}
+							<button class="btn file-preview-button" role="file-preview-button">
+								<span class="icon-arrow-left"></span>
+							</button>
+						{% endif %}
 
-					{% if file.is_inline %}
-						<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" class="file-view-button">
-							<span class="icon-file"></span>
-							View file
+						<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" download="{{ file.filename }}">
+							<span class="icon-download-alt"></span>
+							Download file
 						</a>
-					{% endif %}
-				</p>
+
+						{% if file.is_inline %}
+							<a href="{{ file.file_obj.cdn_url }}{{ file.filename }}" class="btn" class="file-view-button">
+								<span class="icon-file"></span>
+								View file
+							</a>
+						{% endif %}
+					</p>
+				</div>
+
 			</div>
 		</div>
-
-	</div>
-
+	{% endwith %}
 {% endblock %}
