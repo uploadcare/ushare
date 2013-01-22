@@ -160,18 +160,10 @@ body {
 	height: 10px;
 }
 
-@media only screen and (device-width: 768px) and (orientation: landscape) {
+@media only handheld {
 	/* rules for iPad in landscape orientation */
 
-	.file-preview-button {
-		display: none;
-	}
-}
-
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-	/* iPhone, Android rules here */
-
-	.file-preview-button {
+	.file-preview-button, .file-info-button {
 		display: none;
 	}
 }
