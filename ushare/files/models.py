@@ -1,4 +1,6 @@
 from urllib import urlopen
+from markdown import markdown
+from textile import textile
 from pygments import lexers, formatters, highlight, styles
 from pygments.util import ClassNotFound
 
@@ -12,6 +14,10 @@ from pyuploadcare.dj import FileField
 from .utils import get_extension, encode_url
 from .validators import extension_validator, size_validator
 
+
+
+TEXTILE_FILE_EXTENSIONS = ('textile',)
+MARKDOWN_FILE_EXTENSIONS = ('md',)
 
 
 class BaseAbstractFile(models.Model):
@@ -85,15 +91,21 @@ class BaseAbstractFile(models.Model):
             style = styles.get_style_by_name('friendly')
             formatter = formatters.HtmlFormatter(style=style)
             style = formatter.get_style_defs()
-            
-            file_buffer = urlopen(self.file_obj.cdn_url)
+            html = u''
 
-            pygmented_content = u'<style>%s</style>\n' % style
-            pygmented_content += highlight(file_buffer.read(), self.lexer, formatter) 
-            
-            file_buffer.close()
-            
-            return pygmented_content
+            f = urlopen(self.file_obj.cdn_url)
+            data = f.read().decode('utf-8')
+            if isinstance(self.lexer, lexers.TextLexer) and self.extension in (MARKDOWN_FILE_EXTENSIONS + TEXTILE_FILE_EXTENSIONS):
+                format_string = u'<div class="%s"><pre>%s</pre></div>'
+                if self.extension in MARKDOWN_FILE_EXTENSIONS:
+                    html += format_string % ('markdown', markdown(data))
+                elif self.extension in TEXTILE_FILE_EXTENSIONS:
+                    html += format_string % ('textile', textile(data))
+            else:
+                html += u'<style>%s</style>\n%s' % (style, highlight(data, self.lexer, formatter))
+            f.close()
+
+            return html
 
     @property
     def lexer(self):

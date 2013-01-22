@@ -115,7 +115,7 @@ body {
 				display: block;
 			}
 
-		.highlight {
+		.highlight, .textile, .markdown {
 			text-align: left;
 		}
 
