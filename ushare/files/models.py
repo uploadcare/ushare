@@ -99,7 +99,7 @@ class BaseAbstractFile(models.Model):
                 return None
 
             if isinstance(lexer, lexers.TextLexer) and possible_markdown:
-                format_string = u'<div class="%s"><pre>%s</pre></div>'
+                format_string = u'<div class="%s">%s</div>'
 
                 if self.extension in MARKDOWN_FILE_EXTENSIONS:
                     data = format_string % ('markdown', markdown(data))
