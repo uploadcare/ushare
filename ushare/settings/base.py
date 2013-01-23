@@ -182,4 +182,4 @@ SHORT_URL_ALPHABET = 'mqbpygnc4rv8da6j2etxuk3fw95z7hs'
 SHORT_URL_BLOCK_SIZE = 24
 SHORT_URL_MIN_LENGTH = 6
 
-INLINE_FILE_FORMATS = ('pdf', 'mp4',)
+INLINE_FILE_FORMATS = ('pdf', 'mp4', 'mp3',)
