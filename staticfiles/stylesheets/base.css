@@ -152,6 +152,14 @@ body {
 		margin-top: 28px;
 	}
 
+	.annotation .left {
+		width: 45%;
+	}
+
+	.annotation .right {
+		width: 49%;
+	}
+
 .footer a.credits {
 	text-decoration: none;
 	color: #333;
