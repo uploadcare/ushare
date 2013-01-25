@@ -8,6 +8,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.utils.encoding import iri_to_uri
 
 from pyuploadcare.dj import FileField
 
@@ -38,8 +39,9 @@ class BaseAbstractFile(models.Model):
             'protocol': 'https' if use_https else 'http',
             'domain': Site.objects.get_current().domain,
             'url': self.get_absolute_url(),
+            'filename': self.filename,
         }
-        return u'%(protocol)s://%(domain)s%(url)s' % mapping
+        return iri_to_uri(u'%(protocol)s://%(domain)s%(url)s%(filename)s' % mapping)
 
     @property
     def encoded_id(self):

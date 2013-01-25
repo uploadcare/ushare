@@ -1,3 +1,30 @@
+(function($) {
+	$.fn.selectNodeContents = function(class_name) {
+		var ieSelector = function(elem) {
+			var range = document.body.createTextRange();
+			range.moveToElementText(elem);
+			range.select();
+		},
+		commonSelector = function(elem) {
+			var selection = window.getSelection(),
+				range = document.createRange();
+			range.selectNodeContents(elem);
+			selection.removeAllRanges();
+			selection.addRange(range);
+			},
+		selectFunction = document.body.createTextRange ? ieSelector : commonSelector;
+
+		$(this).each(function(index, elem) {
+			selectFunction(elem);
+			$(elem).addClass(class_name);
+		});
+
+			//window.getSelection
+			// document.body.createTextRange
+	};
+})( jQuery );
+
+
 $(document).ready(function() {
 
 	var initClipBoard = function() {
@@ -32,6 +59,7 @@ $(document).ready(function() {
 		$('@progress-bar, @upload-success, @upload-fail').addClass('hidden');
 		$('@file-url-link').attr('href', '#');
 		$('@file-url').val('');
+		$('@file-url-path, @file-url-name').empty();
 		$('@upload-form').removeClass('hidden');
 		if (window.clip) window.clip.hide();
 	};
@@ -48,8 +76,14 @@ $(document).ready(function() {
 			progressTimeout = setTimeout(function() {
 				$progress_bar.addClass('hidden');
 				if (file_url) {
+					var last_slash_index = file_url.lastIndexOf('/'),
+						short_url = file_url.substring(0, last_slash_index + 1),
+						filename = file_url.substring(last_slash_index + 1);
+
 					$('@upload-success').removeClass('hidden')
 						.find('@file-url').val(file_url).end()
+						.find('@file-url-path').html(short_url).end()
+						.find('@file-url-name').html(filename).end()
 						.find('@file-url-link').attr('href', file_url);
 					initClipBoard();
 				}
@@ -102,8 +136,12 @@ $(document).ready(function() {
 		});
 	});
 
-	$('@file-url').click(function() {
-		$(this).select();
+	$('@file-url-input:not(.focus)').click(function() {
+		$(this).selectNodeContents('focus');
+	});
+
+	$('body').click(function(e) {
+		$('@file-url-input').not(e.target).removeClass('focus');
 	});
 
 	$('@uploadcare-uploader').change(function() {
