@@ -22,10 +22,19 @@
 			//window.getSelection
 			// document.body.createTextRange
 	};
-})( jQuery );
+})(jQuery);
 
 
 $(document).ready(function() {
+
+	var clearSelections = function() {
+		if (document.body.createTextRange) {
+			// TODO: Add IE-case here.
+		}
+		else {
+			window.getSelection().removeAllRanges();
+		};
+	};
 
 	var initClipBoard = function() {
 		if (!window.clip) {
@@ -62,6 +71,7 @@ $(document).ready(function() {
 		$('@file-url-path, @file-url-name').empty();
 		$('@upload-form').removeClass('hidden');
 		if (window.clip) window.clip.hide();
+		clearSelections();
 	};
 
 	var uploadComplete = function(file_url, errors) {
