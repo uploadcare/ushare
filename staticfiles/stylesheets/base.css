@@ -142,7 +142,13 @@ body {
 
 	.file-info {
 		text-align: left;
+		overflow: hidden;
 	}
+
+		.file-info div {
+			width: inherit;
+			display: block;
+		}
 
 .annotation {
 	margin: 60px 0;
