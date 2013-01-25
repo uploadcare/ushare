@@ -28,8 +28,8 @@
 $(document).ready(function() {
 
 	var clearSelections = function() {
-		if (document.body.createTextRange) {
-			// TODO: Add IE-case here.
+		if (document.selection) {
+			document.selection.empty();
 		}
 		else {
 			window.getSelection().removeAllRanges();
