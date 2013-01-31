@@ -64,7 +64,8 @@ $(document).ready(function() {
 		.find('.progress').removeClass('progress-success progress-danger').addClass('progress-striped active')
 			.find('.bar').width(0);
 		clearTimeout(progressTimeout);
-		if (xhr.abort != undefined) xhr.abort();
+
+		if (xhr && xhr.abort != undefined) xhr.abort();
 		$('@progress-bar, @upload-success, @upload-fail').addClass('hidden');
 		$('@file-url-link').attr('href', '#');
 		$('@file-url').val('');
