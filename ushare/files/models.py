@@ -55,7 +55,7 @@ class BaseAbstractFile(models.Model):
 
     @property
     def filename(self):
-        return self.file_obj.info[u'original_filename'].strip('/')
+        return self.file_obj.info[u'original_filename'].strip('/').replace('/', '_')
 
     @property
     def extension(self):
