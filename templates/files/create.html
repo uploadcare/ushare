@@ -74,8 +74,11 @@
 				with!<br />
 				The uploaded file should meet the following requirements:
 				<ol>
-					<li>not larger than {{ MAX_FILE_SIZE|filesizeformat }};</li>
-
+					<li>
+						{% with MAX_FILE_SIZE|filesizeformat as size %}
+							not larger than {{ size.split.0|floatformat }} {{ size.split.1 }};
+						{% endwith %}
+					</li>
 					{% if ALLOWED_EXTENSIONS %}
 						<li>
 							it's extension should be one of: 
