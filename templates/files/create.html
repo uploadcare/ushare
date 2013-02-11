@@ -81,7 +81,7 @@
 					</li>
 					{% if ALLOWED_EXTENSIONS %}
 						<li>
-							it's extension should be one of: 
+							its extension should be one of: 
 							{% for ext in ALLOWED_EXTENSIONS %}
 								<i>.{{ ext }}{% if not forloop.last %},{% endif %}</i>
 							{% endfor %}
@@ -90,7 +90,7 @@
 
 					{% if FORBIDDEN_EXTENSIONS %}
 						<li>
-							it's extension should <strong>NOT</strong> be one of:
+							its extension should <strong>NOT</strong> be one of:
 							{% for ext in FORBIDDEN_EXTENSIONS %}
 								<i>.{{ ext }}{% if not forloop.last %},{% endif %}</i>
 							{% endfor %}
