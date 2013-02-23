@@ -119,6 +119,10 @@ body {
 			text-align: left;
 		}
 
+		.highlight pre {
+			word-break: normal;
+		}
+
 		.textile, .markdown {
 			word-wrap: break-word;
 			line-height: 20px;
