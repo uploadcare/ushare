@@ -121,7 +121,6 @@ body {
 
 		.textile, .markdown {
 			word-wrap: break-word;
-			word-break: break-all;
 			line-height: 20px;
 			font-size: 13px;
 			padding: 9.5px;
