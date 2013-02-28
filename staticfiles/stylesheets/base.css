@@ -16,9 +16,17 @@ body {
 		display: none;
 	}
 
-.header a {
-	text-decoration: none;
+.header {
+	padding: 10px 0;
 }
+
+	.header a {
+		text-decoration: none;
+	}
+
+	.header h3 {
+		display: inline;
+	}
 
 .content {
 	margin: 60px 0;
