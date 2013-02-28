@@ -213,7 +213,7 @@ body {
 	color: #555;
 	padding: 1px 6px 7px 6px;
 	display: inline-block;
-	cursor: not-allowed;
+	cursor: pointer;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight: normal;
 	white-space: nowrap;
