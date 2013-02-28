@@ -1,29 +1,28 @@
 (function($) {
 	$.fn.selectNodeContents = function(class_name) {
 		var ieSelector = function(elem) {
-			var range = document.body.createTextRange();
-			range.moveToElementText(elem);
-			range.select();
-		},
-		commonSelector = function(elem) {
-			var selection = window.getSelection(),
-				range = document.createRange();
-			range.selectNodeContents(elem);
-			selection.removeAllRanges();
-			selection.addRange(range);
+				var range = document.body.createTextRange();
+				range.moveToElementText(elem);
+				range.select();
 			},
-		selectFunction = document.body.createTextRange ? ieSelector : commonSelector;
+			commonSelector = function(elem) {
+				var selection = window.getSelection(),
+					range = document.createRange();
+				range.selectNodeContents(elem);
+				selection.removeAllRanges();
+				selection.addRange(range);
+			},
+			selectFunction = document.body.createTextRange ? ieSelector : commonSelector;
 
 		$(this).each(function(index, elem) {
 			selectFunction(elem);
 			$(elem).addClass(class_name);
 		});
 
-			//window.getSelection
-			// document.body.createTextRange
+		// window.getSelection
+		// document.body.createTextRange
 	};
 })(jQuery);
-
 
 $(document).ready(function() {
 
@@ -147,13 +146,16 @@ $(document).ready(function() {
 		});
 	});
 
-	$('@file-url-input:not(.focus)').click(function() {
-		$(this).selectNodeContents('focus');
-	});
-
-	$('body').click(function(e) {
-		$('@file-url-input').not(e.target).removeClass('focus');
-	});
+	$('@file-url-input')
+		.mouseup(function(e) {
+			e.preventDefault();
+		}) 
+		.focus(function() {
+			$(this).selectNodeContents('focus');
+		})
+		.blur(function() {
+			$(this).removeClass('focus');
+		});
 
 	$('@uploadcare-uploader').change(function() {
 		if ($(this).val()) {
