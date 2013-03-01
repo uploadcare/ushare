@@ -140,8 +140,9 @@ $(document).ready(function() {
 			error: function(request, status) {
 				if (status != 'abort') uploadComplete(false, ['Error',]);
 			},
-			success: function(data) {
-				uploadComplete(data.url, data.file_obj)
+			success: function(data, status, jqXHR) {
+				var url = jqXHR.getResponseHeader('Location');
+				uploadComplete(url, data.file_obj);
 			}
 		});
 	});

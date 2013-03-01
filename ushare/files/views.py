@@ -17,18 +17,25 @@ class FileCreateView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
+        url = self.object.url(self.request.is_secure())
         context = {
-            'url': self.object.url(self.request.is_secure()),
+            'url': url,   # TODO: Get rid of this.
         }
-        return self.get_json_response(context)
+        headers = {
+            'Location': url,
+        }
+        return self.get_json_response(context, 201, headers)
 
     def form_invalid(self, form):
         context = form.errors
         return self.get_json_response(context)
 
-    def get_json_response(self, context, status=200):
+    def get_json_response(self, context=None, status=200, headers=None):
         content = json.dumps(context)
-        return HttpResponse(content, 'application/json', status)
+        response = HttpResponse(content, 'application/json', status)
+        for header, value in (headers or {}).iteritems():
+            response[header] = value
+        return response
 
     def get_context_data(self, *args, **kwargs):
         context = super(FileCreateView, self).get_context_data(*args, **kwargs)
