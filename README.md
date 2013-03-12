@@ -61,6 +61,14 @@ uShare
   <pre>
     <code>heroku config:add DATABASE_URL=<i>my_database_url</i></code>
   </pre>
+  You may also want to set other system variables, like:
+  <pre>
+    <code>DJANGO_DEBUG</code>
+    <code>DJANGO_PRODUCTION_MODE</code>
+    <code>DJANGO_SECRET_KEY</code>
+    <code>UPLOADCARE_PUBLIC_KEY</code>
+    <code>UPLOADCARE_PRIVATE_KEY</code>
+  </pre>
 
 
 7.
