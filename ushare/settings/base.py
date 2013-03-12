@@ -6,9 +6,9 @@ import dj_database_url
 
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
-DEBUG = os.environ.get('DJANGO_DEBUG')
+DEBUG = os.environ.get('DJANGO_DEBUG', True)
 TEMPLATE_DEBUG = DEBUG
-PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION_MODE')
+PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION_MODE', False)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -79,7 +79,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -170,8 +170,8 @@ LOGGING = {
 }
 
 UPLOADCARE = {
-    'pub_key': os.environ.get('UPLOADCARE_PUBLIC_KEY'),
-    'secret': os.environ.get('UPLOADCARE_PRIVATE_KEY'),
+    'pub_key': os.environ.get('UPLOADCARE_PUBLIC_KEY', 'demopublickey'),
+    'secret': os.environ.get('UPLOADCARE_PRIVATE_KEY', 'demoprivatekey'),
 }
 
 PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.4/uploadcare/uploadcare-0.4.4.min.js'
