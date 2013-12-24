@@ -4,7 +4,6 @@ from django.conf import settings
 from .utils import get_extension
 
 
-
 def extension_validator(value):
     extension = get_extension(value.info[u'original_filename'])
     allowed_extensions = getattr(settings, 'ALLOWED_EXTENSIONS', ())

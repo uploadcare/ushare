@@ -6,7 +6,7 @@ dj-database-url==0.2.1
 gunicorn==0.16.1
 Markdown==2.2.1
 psycopg2==2.4.5
-pyuploadcare==0.13
+pyuploadcare==1.2.2
 requests==0.14.2
 short-url==1.0
 textile==2.1.5

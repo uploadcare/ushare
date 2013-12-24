@@ -3,7 +3,6 @@ import os
 import dj_database_url
 
 
-
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
 DEBUG = os.environ.get('DJANGO_DEBUG', True)
@@ -75,7 +74,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -85,7 +83,6 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -105,8 +102,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'ushare.files.middleware.MobileDetectionMiddleware',
 )
 
@@ -116,9 +111,6 @@ ROOT_URLCONF = 'ushare.urls'
 WSGI_APPLICATION = 'ushare.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     here('..', '..', 'templates'),
 )
 
@@ -129,9 +121,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
 
     'south',
@@ -171,10 +161,10 @@ LOGGING = {
 
 UPLOADCARE = {
     'pub_key': os.environ.get('UPLOADCARE_PUBLIC_KEY', 'demopublickey'),
-    'secret': os.environ.get('UPLOADCARE_PRIVATE_KEY', 'demoprivatekey'),
+    'secret': os.environ.get('UPLOADCARE_SECRET_KEY', 'demoprivatekey'),
 }
 
-PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.4/uploadcare/uploadcare-0.4.4.min.js'
+PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.16.2/uploadcare/uploadcare-0.16.2.min.js'
 PYUPLOADCARE_USE_HOSTED_ASSETS = False
 FORBIDDEN_EXTENSIONS = ('exe',)
 

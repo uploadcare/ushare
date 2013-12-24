@@ -10,7 +10,6 @@ from .models import File
 from .utils import decode_url
 
 
-
 class FileCreateView(CreateView):
     model = File
     template_name = 'files/create.html'
