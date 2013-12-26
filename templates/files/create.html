@@ -20,7 +20,7 @@
 {% block content %}
     <div class="content">
 
-        <form action="{% url files:upload %}" method="post" role="upload-form" class="upload-form">
+        <form action="{% url 'files:upload' %}" method="post" role="upload-form" class="upload-form">
             {% csrf_token %}
             {{ form.file_obj }}
         </form>
