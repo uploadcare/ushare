@@ -7,7 +7,7 @@ gunicorn==0.16.1
 Markdown==2.2.1
 psycopg2==2.4.5
 pyuploadcare==1.2.2
-requests==0.14.2
+requests==2.1.0
 short-url==1.0
 textile==2.1.5
 wsgiref==0.1.2

@@ -5,9 +5,9 @@ import dj_database_url
 
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
-DEBUG = os.environ.get('DJANGO_DEBUG', True)
+DEBUG = os.environ.get('DJANGO_DEBUG', False)
 TEMPLATE_DEBUG = DEBUG
-PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION_MODE', False)
+PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION_MODE', True)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -141,22 +141,37 @@ LOGGING = {
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': ('%(levelname)s %(asctime)s |'
+                       ' %(name)s:%(lineno)d (in %(funcName)s) |'
+                       ' %(message)s ')
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
     },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'stderr': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
-    }
+    },
 }
 
 UPLOADCARE = {
@@ -164,7 +179,7 @@ UPLOADCARE = {
     'secret': os.environ.get('UPLOADCARE_SECRET_KEY', 'demoprivatekey'),
 }
 
-PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.16.2/uploadcare/uploadcare-0.16.2.min.js'
+PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.17.0/uploadcare/uploadcare-0.17.0.min.js'
 PYUPLOADCARE_USE_HOSTED_ASSETS = False
 FORBIDDEN_EXTENSIONS = ('exe',)
 
