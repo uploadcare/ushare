@@ -1,5 +1,6 @@
 # Django settings for ushare project.
 import os
+import sys
 import dj_database_url
 
 
@@ -156,15 +157,16 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'stderr': {
+        'stdout': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
             'formatter': 'verbose',
         },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'stdout'],
             'level': 'DEBUG',
             'propagate': True,
         },
@@ -185,3 +187,4 @@ SHORT_URL_BLOCK_SIZE = 24
 SHORT_URL_MIN_LENGTH = 6
 
 INLINE_FILE_FORMATS = ('pdf', 'mp4', 'mp3',)
+ALLOWED_HOSTS = ['*']
