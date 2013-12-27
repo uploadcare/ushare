@@ -75,7 +75,7 @@ $(function() {
         $('@upload-form').removeClass('hidden');
         if (window.clip) window.clip.hide();
         clearSelections();
-        uploadcare.Widget('@uploadcare-uploader').value('');
+        widget.value('');
     };
 
     var uploadComplete = function(file_url, errors) {
@@ -109,7 +109,6 @@ $(function() {
     };
 
     var widget = uploadcare.Widget('@uploadcare-uploader');
-
     var currentFile;
     widget.onChange(function(file) {
         if (file) {
@@ -124,6 +123,9 @@ $(function() {
             });
             file.fail(uploadReset);
             file.done(function() {
+                if (file != currentFile) {
+                    return;
+                }
                 // submit form. sends ajax request to ushare
                 $('@upload-form').submit();
             });
