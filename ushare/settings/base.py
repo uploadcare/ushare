@@ -1,14 +1,14 @@
 # Django settings for ushare project.
 import os
+import sys
 import dj_database_url
-
 
 
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
-DEBUG = os.environ.get('DJANGO_DEBUG', True)
+DEBUG = os.environ.get('DJANGO_DEBUG', False)
 TEMPLATE_DEBUG = DEBUG
-PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION_MODE', False)
+PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION_MODE', True)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -64,9 +64,6 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     here('..', '..', 'staticfiles'),
 )
 
@@ -75,17 +72,15 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'secret')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -105,8 +100,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'ushare.files.middleware.MobileDetectionMiddleware',
 )
 
@@ -116,9 +109,6 @@ ROOT_URLCONF = 'ushare.urls'
 WSGI_APPLICATION = 'ushare.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     here('..', '..', 'templates'),
 )
 
@@ -129,9 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
 
     'south',
@@ -151,30 +139,46 @@ LOGGING = {
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': ('%(levelname)s %(asctime)s |'
+                       ' %(name)s:%(lineno)d (in %(funcName)s) |'
+                       ' %(message)s ')
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
     },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'stdout': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'handlers': ['mail_admins', 'stdout'],
+            'level': 'DEBUG',
             'propagate': True,
         },
-    }
+    },
 }
 
 UPLOADCARE = {
     'pub_key': os.environ.get('UPLOADCARE_PUBLIC_KEY', 'demopublickey'),
-    'secret': os.environ.get('UPLOADCARE_PRIVATE_KEY', 'demoprivatekey'),
+    'secret': os.environ.get('UPLOADCARE_SECRET_KEY', 'demoprivatekey'),
 }
 
-PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.4.4/uploadcare/uploadcare-0.4.4.min.js'
+PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.17.0/uploadcare/uploadcare-0.17.0.min.js'
 PYUPLOADCARE_USE_HOSTED_ASSETS = False
 FORBIDDEN_EXTENSIONS = ('exe',)
 
@@ -183,3 +187,4 @@ SHORT_URL_BLOCK_SIZE = 24
 SHORT_URL_MIN_LENGTH = 6
 
 INLINE_FILE_FORMATS = ('pdf', 'mp4', 'mp3',)
+ALLOWED_HOSTS = ['*']

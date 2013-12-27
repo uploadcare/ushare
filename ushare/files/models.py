@@ -16,15 +16,18 @@ from .utils import get_extension, encode_url
 from .validators import extension_validator, size_validator
 
 
-
 TEXTILE_FILE_EXTENSIONS = ('textile',)
 MARKDOWN_FILE_EXTENSIONS = ('md',)
 MAX_TEXTFILE_SIZE = 1 * 1024 * 1024
 
 
 class BaseAbstractFile(models.Model):
-    file_obj = FileField(verbose_name=_(u'file'), null=True, validators=[extension_validator, size_validator,])
-    date_created = models.DateTimeField(_(u'date created'), auto_now_add=True, null=True)
+    file_obj = FileField(verbose_name=_(u'file'),
+                         null=True,
+                         validators=[extension_validator, size_validator])
+    date_created = models.DateTimeField(_(u'date created'),
+                                        auto_now_add=True,
+                                        null=True)
 
     class Meta:
         abstract = True
@@ -51,11 +54,11 @@ class BaseAbstractFile(models.Model):
 
     @property
     def file_id(self):
-        return self.file_obj.info[u'file_id']
+        return self.file_obj.info()[u'file_id']
 
     @property
     def filename(self):
-        return self.file_obj.info[u'original_filename'].strip('/').replace('/', '_')
+        return self.file_obj.info()[u'original_filename'].strip('/').replace('/', '_')
 
     @property
     def extension(self):
@@ -63,15 +66,15 @@ class BaseAbstractFile(models.Model):
 
     @property
     def size(self):
-        return self.file_obj.info[u'size']
+        return self.file_obj.info()[u'size']
 
     @property
     def mime_type(self):
-        return self.file_obj.info[u'mime_type']
+        return self.file_obj.info()[u'mime_type']
 
     @property
     def is_image(self):
-        return self.file_obj.info[u'is_image']
+        return self.file_obj.info()[u'is_image']
 
     # And some additional.
 
@@ -82,7 +85,8 @@ class BaseAbstractFile(models.Model):
     @property
     def text_content(self):
         if self.size <= MAX_TEXTFILE_SIZE and not self.is_image:
-            possible_markdown = self.extension in (MARKDOWN_FILE_EXTENSIONS + TEXTILE_FILE_EXTENSIONS)
+            possible_markdown = self.extension in (MARKDOWN_FILE_EXTENSIONS +
+                                                   TEXTILE_FILE_EXTENSIONS)
             fake_extension = self.extension if not possible_markdown else u'txt'
             fake_filename = u'.'.join((self.filename, fake_extension,))
 

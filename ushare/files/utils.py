@@ -1,7 +1,5 @@
 from short_url import UrlEncoder
-
 from django.conf import settings
-
 
 
 Hippopotomonstrosesquipedaliophobia = UrlEncoder(settings.SHORT_URL_ALPHABET, settings.SHORT_URL_BLOCK_SIZE)
