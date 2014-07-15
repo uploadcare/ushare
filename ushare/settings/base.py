@@ -1,6 +1,7 @@
 # Django settings for ushare project.
 import os
 import sys
+
 import dj_database_url
 
 
@@ -178,8 +179,6 @@ UPLOADCARE = {
     'secret': os.environ.get('UPLOADCARE_SECRET_KEY', 'demoprivatekey'),
 }
 
-PYUPLOADCARE_WIDGET_URL = 'https://ucarecdn.com/widget/0.17.0/uploadcare/uploadcare-0.17.0.min.js'
-PYUPLOADCARE_USE_HOSTED_ASSETS = False
 FORBIDDEN_EXTENSIONS = ('exe',)
 
 SHORT_URL_ALPHABET = 'mqbpygnc4rv8da6j2etxuk3fw95z7hs'

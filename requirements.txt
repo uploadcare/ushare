@@ -1,4 +1,4 @@
-Django==1.5.5
+Django==1.5.8
 Pygments==1.6rc1
 South==0.7.6
 distribute==0.6.31
@@ -7,7 +7,7 @@ dj-static==0.0.5
 gunicorn==0.16.1
 Markdown==2.2.1
 psycopg2==2.4.5
-pyuploadcare==1.2.2
+pyuploadcare==1.2.7
 requests==2.1.0
 short-url==1.0
 textile==2.1.5
