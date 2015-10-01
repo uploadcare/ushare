@@ -50,7 +50,16 @@ For Django applications, a Heroku Postgres database is automatically provisioned
 Read more [about databse](https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-the-add-on) and Heroku.
 
 
-### 6. Finetuning
+### 6. Install Uploadcare heroku add-on
+
+```bash
+heroku addons:add uploadcare
+```
+
+Read more bellow.
+
+
+### 7. Finetuning
 
 You may also want to set other system variables, like
 
@@ -60,11 +69,18 @@ You may also want to set other system variables, like
 - `UPLOADCARE_PUBLIC_KEY` - see bellow
 - `UPLOADCARE_SECRET_KEY` - see bellow
 
-### 7. Deploy!
+### 8. Deploy!
 
 ```term
 git push
 ```
+
+## Heroku add-on
+
+[Uploadcare add-on](https://addons.heroku.com/uploadcare/) for Heroku is in alpha stage,
+so you may not be able to add it to your app. Contact hello@uploadcare.com to be invited to
+be one of alpha users.
+
 
 ## Storage.
 
