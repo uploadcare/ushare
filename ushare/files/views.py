@@ -1,10 +1,12 @@
+# coding: utf-8
+import json
+
+from django.conf import settings
 from django.http import HttpResponse, HttpResponsePermanentRedirect, Http404
-from django.utils import simplejson as json
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
-from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from .models import File
 from .utils import decode_url
@@ -13,6 +15,7 @@ from .utils import decode_url
 class FileCreateView(CreateView):
     model = File
     template_name = 'files/create.html'
+    fields = ('file_obj',)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -64,8 +67,8 @@ class FileDetailView(DetailView):
             queryset = self.get_queryset()
 
         try:
-            encoded_id = self.kwargs['encoded_id'] 
+            encoded_id = self.kwargs['encoded_id']
             obj_id = decode_url(encoded_id)
             return queryset.get(pk=obj_id)
         except (KeyError, TypeError, ValueError, File.DoesNotExist):
-            raise Http404(unicode(_(u'No files found matching the query')))
+            raise Http404(_(u'No files found matching the query'))
