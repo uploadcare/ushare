@@ -25,7 +25,7 @@ heroku create my-ushare
 ```
 
 ### 3. Clone uShare
-  
+
 Get your copy of uShare repo and get in there:
 
 ```term
@@ -37,7 +37,7 @@ cd my-ushare
 
 Set your app's git repo URL (get it from [here](https://dashboard.heroku.com/apps) if you
 missed it from step #1):
-  
+
 ```term
 git remote set-url origin git@heroku.com:my-ushare.git
 ```
@@ -45,30 +45,19 @@ git remote set-url origin git@heroku.com:my-ushare.git
 
 ### 5. Setup database
 
-- Create a database for your app
+For Django applications, a Heroku Postgres database is automatically provisioned. This populates the `DATABASE_URL` environment variable.
 
-```term
-heroku addons:add heroku-postgresql:dev
-```
+Read more [about databse](https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-the-add-on) and Heroku.
 
-- Configure Django to use new DB
-  Get the location of your database in:
-
-```term
-heroku config
-```
-
-and set it as a default one:
-
-```term
-heroku config:add DATABASE_URL=my_database_url
-```
 
 ### 6. Install Uploadcare heroku add-on
 
 ```bash
 heroku addons:add uploadcare
 ```
+
+Read more bellow.
+
 
 ### 7. Finetuning
 
@@ -77,7 +66,8 @@ You may also want to set other system variables, like
 - `DJANGO_DEBUG`
 - `DJANGO_PRODUCTION_MODE`
 - `DJANGO_SECRET_KEY`
-
+- `UPLOADCARE_PUBLIC_KEY` - see bellow
+- `UPLOADCARE_SECRET_KEY` - see bellow
 
 ### 8. Deploy!
 
@@ -94,13 +84,11 @@ be one of alpha users.
 
 ## Storage.
 
-You can skip this if you are using [Uploadcare add-on](https://addons.heroku.com/uploadcare/) for Heroku.
-
 uShare uses [Uploadcare](https://uploadcare.com/) to store files — its demo-account by default:
-all files are stored for one day, and <strong>DELETED</strong> after.  
+all files are stored for one day, and **DELETED** after.
 If you want a persistent storage, get the Uploadcare
 [subscription](https://uploadcare.com/accounts/create/) and set obtained keys in
-<i>'ushare/settings/local.py'</i> file:
+`ushare/settings/local.py` file:
 
 ```python
 UPLOADCARE = {
@@ -109,13 +97,20 @@ UPLOADCARE = {
 }
 ```
 
+Or you can set system variables:
+
+```term
+heroku config:set UPLOADCARE_PUBLIC_KEY='MY_PUBLIC_KEY'
+heroku config:set UPLOADCARE_SECRET_KEY='MY_SECRET_KEY'
+```
+
 ## Domain name.
 
-Don't forget to set your domain name in django admin:  
+Don't forget to set your domain name in django admin:
 create a superuser (if you don't have one):
 
 ```term
 heroku run python manage.py createsuperuser
 ```
 
-login into django-admin (available at '<i>/admin/</i>' by default) and set the appropriate domain name to your Site-object.
+login into django-admin (available at `/admin/` by default) and set the appropriate domain name to your Site-object.
