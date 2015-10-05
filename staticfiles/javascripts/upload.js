@@ -108,7 +108,7 @@ $(function() {
         }, 500);
     };
 
-    var widget = uploadcare.Widget('@uploadcare-uploader');
+    var widget = uploadcare.Widget('[role="uploadcare-uploader"]');
     var currentFile;
     widget.onChange(function(file) {
         if (file) {
@@ -164,7 +164,7 @@ $(function() {
     $('@file-url-input')
         .mouseup(function(e) {
             e.preventDefault();
-        }) 
+        })
         .focus(function() {
             $(this).selectNodeContents('focus');
         })

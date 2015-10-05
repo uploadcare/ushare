@@ -1,1 +1,1 @@
-web: python manage.py syncdb --migrate --noinput; gunicorn ushare.wsgi
+web: python manage.py migrate --fake-initial --noinput; gunicorn ushare.wsgi

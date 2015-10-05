@@ -18,7 +18,8 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': dj_database_url.config(
+        default='sqlite:////{}'.format(here('db.sqlite'))),
 }
 
 # Local time zone for this installation. Choices can be found here:
@@ -123,7 +124,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
-    'south',
     'pyuploadcare.dj',
 
     'ushare.files',
