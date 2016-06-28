@@ -10,7 +10,7 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 from django.utils.encoding import iri_to_uri
 
-from pyuploadcare.dj import FileField
+from pyuploadcare.dj.models import FileField
 
 from .utils import get_extension, encode_url
 from .validators import extension_validator, size_validator

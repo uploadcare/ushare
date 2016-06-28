@@ -2,7 +2,7 @@
 import json
 
 from django.conf import settings
-from django.http import HttpResponse, HttpResponsePermanentRedirect, Http404
+from django.http import HttpResponse, Http404
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 from django.utils.translation import ugettext_lazy as _
