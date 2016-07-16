@@ -12,6 +12,10 @@
 
 {% block extra_head %}
     {{ form.media }}
+    <script type="text/javascript">
+        UPLOADCARE_IMAGES_ONLY = true;
+        UPLOADCARE_CROP = "free";
+    </script>
     <script type="text/javascript" src="{{ STATIC_URL }}javascripts/upload.js"></script>
     {{ block.super }}
 {% endblock %}
