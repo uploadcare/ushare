@@ -70,14 +70,10 @@
             <h4>With no restrictions?</h4>
             <p>
                 <strong>Absolutely</strong>
-                with!<br />
-                The uploaded file should meet the following requirements:
+                with:<br />
                 <ol>
-                    <li>
-                        {% with MAX_FILE_SIZE|filesizeformat as size %}
-                            not larger than {{ size.split.0|floatformat }} {{ size.split.1 }};
-                        {% endwith %}
-                    </li>
+                    <li>only images are allowed</li>
+                    {% comment %}
                     {% if ALLOWED_EXTENSIONS %}
                         <li>
                             its extension should be one of:
@@ -95,9 +91,8 @@
                             {% endfor %}
                         </li>
                     {% endif %}
-                    <li>
-                        files are removed after 30 days upon upload;
-                    </li>
+                    {% endcomment %}
+                    <li>files are removed after 24 hours upon upload</li>
                 </ol>
             </p>
         </div>
